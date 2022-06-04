@@ -12,9 +12,26 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexMember(Request $request)
     {
-        //
+        if($request->has('search')){
+            $data = Member::where('gender','LIKE','%' .$request->search.'%')->paginate(5);
+        }else{
+            $data = Member::paginate(10);
+        }
+        
+        return view('member.member', compact('data'));
+    }
+
+    public function updateMember($id)
+    {
+        User::find($id)->update(['status'=>'yes']);
+        return redirect()->back();
+    }
+    public function rejectMember($id)
+    {
+        User::find($id)->update(['status'=>'no']);
+        return redirect()->back();
     }
 
     /**

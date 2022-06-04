@@ -217,15 +217,15 @@
                 </p>
               </a>
             </li>
-           <!--  <li class="nav-item">
-              <a href="/pengurus" class="nav-link">
+            <li class="nav-item">
+              <a href="" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
-                  Data Pengurus
+                  Data Client
                 </p>
               </a>
             </li>
-            <li class="nav-item">
+           <!--  <li class="nav-item">
               <a href="/point" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>

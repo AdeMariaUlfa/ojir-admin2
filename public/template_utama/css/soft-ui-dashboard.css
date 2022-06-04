@@ -19834,15 +19834,15 @@ fieldset:disabled .btn {
 .oblique {
   transform: skewX(-10deg);
   overflow: hidden;
-  width: 60%;
+  width: 55%;
   right: -10rem;
   border-bottom-left-radius: 0.75rem;
-  border-left: 2px solid whitesmoke;
-  border-bottom: 2px solid whitesmoke;
+  border-left: 9px solid whitesmoke;
+  border-bottom: 9px solid whitesmoke;
 }
 
 .oblique .oblique-image {
-  transform: skewX(10deg);
+  transform: skewX(0deg);
   border-bottom-left-radius: 0.75rem;
 }
 

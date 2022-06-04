@@ -13,8 +13,8 @@
           <a href="" class="btn btn-sm btn-success">TAMBAH +</a><br>
         <div class="row g-3 align-items-center ">
           <div class="col-auto">
-            <form action="/clients" method="GET">
-              <input type="search" name="search" id="inputPassword5" class="form-control" placeholder="cari berdasarkan nama" aria-describedby="passwordHelpBlock">
+            <form action="{{ route('banksampah') }}" method="GET">
+              <input type="search" name="search" id="inputPassword5" class="form-control" placeholder="cari nama pemilik" aria-describedby="passwordHelpBlock">
             </form>
           </div>
         </div>
@@ -48,16 +48,16 @@
                 @endphp
                 @foreach ($data as $index => $row)
                 <th scope="row">{{ $row->id }}</th>
-                <td>{{ $row->user->name }}</td>
-                <td>{{ $row->user->email }}</td>
-                <td>{{ $row->pemilik }}</td>
-                <td>{{ $row->alamat_banksampah }}</td>
+                <td class="text-uppercase">{{ $row->user->name }}</td>
+                <td class="text-lowercase">{{ $row->user->email }}</td>
+                <td class="text-capitalize">{{ $row->pemilik }}</td>
+                <td class="text-capitalize">{{ $row->alamat_banksampah }}</td>
                 <td>{{ $row->tanggal_berdiri }}</td>
-                <td>{{ $row->kota_kab }}</td>
-                <td>{{ $row->user->status }}</td>
+                <td class="text-capitalize">{{ $row->kota_kab }}</td>
+                <td class="text-lowercase">{{ $row->user->status }}</td>
                 <td>
-                  <a href="/updatebanksampah/{{ $row->user_id }}" class="btn btn-warning btn-sm">VERIFIKASI</a>
-                  <a href="/rejectbanksampah/{{ $row->user_id }}" class="btn btn-danger btn-sm">REJECT</a>
+                  <a href="/updatebanksampah/{{ $row->user_id }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
+                  <a href="/rejectbanksampah/{{ $row->user_id }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
                 </td>
                 </tr>
                 @endforeach

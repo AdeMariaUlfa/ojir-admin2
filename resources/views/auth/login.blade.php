@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('template_utama/img/logo.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('template_utama/img/logo.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('template_utama/img/ojir.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('template_utama/img/ojir.png') }}">
     <title>
         Admin Ojir
     </title>
@@ -35,11 +35,11 @@
                     <div class="row">
                         <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                             <div class="card card-plain mt-8">
-                                <div class="card-header pb-0 text-left bg-white">
-                                    <h3 class="font-weight-bolder text-info text-gradient">Welcome Back - Admin Ojir (Only)</h3>
+                                <div class="card-header pb-0 text-left bg-light">
+                                    <h3 class="font-weight-bolder text-info text-gradient">Welcome Back - Ojir Website </h3>
                                     <p class="mb-0">Enter your email and password</p>
                                 </div>
-                                <div class="card-body bg-white">
+                                <div class="card-body bg-light">
                                     <form role="form" action="{{ route('login') }}" method="POST" enctype="multipart/form-data">
                                         {{csrf_field()}}
                                         <label>Email</label>
@@ -53,9 +53,12 @@
                                         <div class="text-center">
                                             <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Login</button>
                                         </div>
-                                    </form>
+                                    </form><br>
                                     <small class="d-block text-center mt-3">Bank sampah belum terdaftar?
                                         <a href="{{ route('register') }}">Daftar disini !</a>
+                                    </small>
+                                    <small class="d-block text-center mt-3">Belum daftar sebagai member?
+                                        <a href="{{ route('registerMember') }}">Daftar disini !</a>
                                     </small>
                                    
                                 </div>

@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+
 
 class RegisterController extends Controller
 {
@@ -71,6 +73,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'no_ktp' => ['required', 'string'],
+            'upload_ktp' => ['required'],
             'gender' => ['required'],
             'alamat' => ['required', 'string'],
             'no_telp' => ['required', 'numeric', 'unique:members'],
@@ -117,14 +120,24 @@ class RegisterController extends Controller
             'status' => 'yes',
         ]);
 
+        $path = request()->file('upload_ktp') ?? null;
+        if (request()->hasFile('upload_ktp'))
+        {
+            $file = request()->file('upload_ktp');
+            $name = time();
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $name . '.' . $extension;
+            $path = $file->move('foto_ktp_member/', $file->getClientOriginalName());
+        }
         Member::create([
             'user_id' => $user->id,
             'no_ktp' => $data['no_ktp'],
-            'upload_ktp' => 'ktp',
             'gender' => $data['gender'],
             'alamat' => $data['alamat'],
             'no_telp' => $data['no_telp'],
+            'upload_ktp' => $path
         ]);
+
 
         return $user;
     }

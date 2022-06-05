@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Member;
 use Illuminate\Http\Request;
+use App\Models\Member;
+use App\Models\User;
 
 class MemberController extends Controller
 {
@@ -19,10 +20,9 @@ class MemberController extends Controller
         }else{
             $data = Member::paginate(10);
         }
-        
+
         return view('member.member', compact('data'));
     }
-
     public function updateMember($id)
     {
         User::find($id)->update(['status'=>'yes']);
@@ -34,6 +34,22 @@ class MemberController extends Controller
         return redirect()->back();
     }
 
+    public function indexClient()
+    {
+        $data = User::where('role','client')->with('member')->get();
+        // dd($data);
+        return view('member.client', compact('data'));
+    }
+    public function updateClient($id)
+    {
+        User::find($id)->update(['status'=>'yes']);
+        return redirect()->back();
+    }
+    public function rejectClient($id)
+    {
+        User::find($id)->update(['status'=>'no']);
+        return redirect()->back();
+    }
     /**
      * Show the form for creating a new resource.
      *

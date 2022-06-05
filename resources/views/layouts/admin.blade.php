@@ -225,6 +225,14 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('client') }}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Data Client 
+                </p>
+              </a>
+            </li>
            <!--  <li class="nav-item">
               <a href="/point" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>

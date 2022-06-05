@@ -1,6 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<style>
+* {
+  box-sizing: border-box;
+}
 
+body {
+  background-color: #f1f1f1;
+}
+
+#regForm {
+  margin: auto;
+  font-family: Raleway;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;  
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  background-color: #04AA6D;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}
+</style>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,33 +102,40 @@
 </head>
 
 <body class="">
-
+  
   <!-- isi menu diatas -->
   <main class="main-content bg-dark mt-0">
-    <section>
-      <div class="page-header min-vh-75">
+  <section>
+      <div class="page-header min-vh-100">
         <div class="container">
           <div class="row">
-            <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
+            <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column ">
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-light">
                   <h3 class="font-weight-bolder text-info text-gradient">Register - Member</h3>
-                  <p class="mb-0">{{ __('Register Member') }}</p>
+                  <p class="mb-0">{{ __('Register Sebagai Member') }}</p>
                 </div>
                 <div class="card-body bg-light">
-                  <form action="{{ route('registerMember') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <label>{{ __('Nama Lengkap') }}</label>
-                    <div class="mb-3">
-                      <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                      @error('name')
-                      <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                      @enderror
-                    </div>
-                    <label for="role" class="form-label">{{ __('Role') }}</label>
-                    <div class="mb-3">
+                <form id="regForm" action="{{ route('registerMember') }}" method="POST" enctype="multipart/form-data">
+                  @csrf
+                <!-- One "tab" for each step in the form: -->
+                <div class="tab">
+                <label>{{ __('Pilih Bank Sampah') }}</label>
+                  <div class="mb-3">
+                      <select class="form-select" name="banksampah" id="banksampah" aria-label="Default select example"> 
+                          <option selected>Pilih Bank Sampah</option>
+                          @foreach ($data as $index => $row)
+                            <option value="{{ $row->id }}">{{ $row->name }}</option>
+                          @endforeach
+                      </select> 
+                  </div>
+                  <p><input placeholder="Alamat bank sampah..." id="alamat" oninput="this.className = ''" name="lname"></p>
+                  <p><input placeholder="Kota / kabupaten..." id="kota_kab" oninput="this.className = ''" name="lname"></p>
+                  <p><input placeholder="Pemilik..." id="pemilik" oninput="this.className = ''" name="lname"></p>
+                </div>
+                <div class="tab">
+                  <label>{{ __('Pilih Role Member') }}</label>
+                  <div class="mb-3">
                     <select class="form-select" name="role" aria-label="Default select example">
                         <option selected>Pilih jenis member</option>
                           <option value="keuangan">Admin Keuangan</option>
@@ -56,8 +143,17 @@
                           <option value="client">Client</option>
                     </select>
                     </div>
-                    <label for="no_ktp" class="form-label">{{ __('No KTP') }}</label>
-                    <div class="mb-3">
+                  <label>{{ __('Nama Lengkap') }}</label>
+                  <div class="mb-3">
+                      <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                      @error('name')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
+                    </div>
+                  <label>{{ __('No KTP') }}</label>
+                  <div class="mb-3">
                       <input id="no_ktp" type="text" min="16" max="16" onkeypress="return isNumber(event)" class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp" value="{{ old('no_ktp') }}" required autocomplete="no_ktp" autofocus>
                       @error('no_ktp')
                       <span class="invalid-feedback" role="alert">
@@ -65,23 +161,23 @@
                       </span>
                       @enderror
                     </div>
-                    <label for="upload_ktp" class="form-label">{{ __('Upload KTP') }}</label>
-                    <div class="mb-3">
+                  <label>{{ __('Upload KTP') }}</label>
+                  <div class="mb-3">
                     <div class="custom-file">
                       <input id="upload_ktp" type="file" class="custom-file-input" name="upload_ktp">
                       <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     </div>
-                    <label for="gender" class="form-label">{{ __('Jenis Kelamin') }}</label>
-                    <div class="mb-3">
+                  <label>{{ __('Jenis Kelamin') }}</label>
+                  <div class="mb-3">
                     <select class="form-select" name="gender" aria-label="Default select example">
                         <option selected>Pilih jenis kelamin</option>
                           <option value="laki">Laki-laki</option>
                           <option value="perempuan">Perempuan</option>
                     </select>
-                    </div>
-                    <label for="alamat" class="form-label">{{ __('Alamat') }}</label>
-                    <div class="mb-3">
+                  </div>
+                  <label>{{ __('Alamat') }}</label>
+                  <div class="mb-3">
                       <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
                       @error('alamat')
                       <span class="invalid-feedback" role="alert">
@@ -89,8 +185,8 @@
                       </span>
                       @enderror
                     </div>
-                    <label for="no_telp" class="form-label">{{ __('Nomor Telepon') }}</label>
-                    <div class="mb-3">
+                  <label>{{ __('No Telp') }}</label>
+                  <div class="mb-3">
                       <input type="tel" onkeypress="return isNumber(event)" id="no_telp" name="no_telp" pattern="[0-9]{11,13}" class="form-control @error('no_telp') is-invalid @enderror" value="{{ old('no_telp') }}" required autocomplete="no_telp" autofocus>
                       @error('no_telp')
                       <span class="invalid-feedback" role="alert">
@@ -98,16 +194,16 @@
                       </span>
                       @enderror
                     </div>
-                    <label for="email" class="form-label">{{ __('E-Mail') }}</label>
-                    <div class="mb-3">
+                  <label>{{ __('Email') }}</label>
+                  <div class="mb-3">
                       <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                       @error('email')
                       <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                       </span>
                       @enderror
-                    </div>
-                    <label for="password" class="form-label">{{ __('Password') }}</label>
+                  </div>
+                  <label for="password" class="form-label">{{ __('Password') }}</label>
                     <div class="mb-3">
                       <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                       @error('password')
@@ -120,14 +216,24 @@
                     <div class="mb-3">
                       <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                     </div>
-                   
-                    <div class="text-center">
-                      <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0"> {{ __('Register') }} </button>
-                    </div>
-                  </form>
+                </div>
+                <div style="overflow:auto;">
+                  <div style="float:right;">
+                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                  </div>
+                </div>
+                <!-- Circles which indicates the steps of the form: -->
+                <div style="text-align:center;margin-top:40px;">
+                  <span class="step"></span>
+                  <span class="step"></span>
+                </div>
+                </form>
+
                   <small class="d-block text-center mt-3">Sudah terdaftar member?
                     <a href="{{ route('login') }}">Login disini !</a>
                   </small>
+                  </div>
                 </div>
               </div>
             </div>
@@ -172,6 +278,100 @@
     }
     return true;
 }
+</script>
+<script>
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  //... and run a function that will display the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("regForm").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value == "") {
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      // and set the current valid status to false
+      valid = false;
+    }
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class on the current step:
+  x[n].className += " active";
+}
+</script>
+
+<!-- ajax data bank sampah -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+    $(function () {
+        $("#banksampah").change(function () {
+            let value = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '{{ route("showBankSampah") }}',
+                data: {'filter': value},
+                success: function (data) {
+                    document.getElementById('alamat').value = data.alamat_banksampah;
+                    document.getElementById('kota_kab').value = data.kota_kab;
+                    document.getElementById('pemilik').value = data.pemilik;
+                }
+            });
+        });
+    });
 </script>
 
 </html>

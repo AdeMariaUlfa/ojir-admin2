@@ -13,7 +13,7 @@
           <a href="" class="btn btn-sm btn-success">TAMBAH +</a><br>
         <div class="row g-3 align-items-center ">
           <div class="col-auto">
-            <form action="{{ route('member') }}" method="GET">
+            <form action="{{ route('client') }}" method="GET">
               <input type="search" name="search" id="inputPassword5" class="form-control" placeholder="cari berdasarkan gender" aria-describedby="passwordHelpBlock">
             </form>
           </div>
@@ -48,24 +48,24 @@
                 @endphp
                 @foreach ($data as $index => $row)
                 <th scope="row">{{ $row->id }}</th>
-                <td class="text-uppercase">{{ $row->user->name }}</td>
-                <td class="text-lowercase">{{ $row->user->email }}</td>
-                <td class="text-capitalize">{{ $row->gender }}</td>
+                <td class="text-uppercase">{{ $row->name }}</td>
+                <td class="text-lowercase">{{ $row->email }}</td>
+                <td class="text-capitalize">{{ $row->member->gender }}</td>
                 <td>
-                  <img src="{{ asset($row->upload_ktp) }}" alt="" style="width:100px; height: 100px;">
+                  <img src="{{ asset($row->member->upload_ktp) }}" alt="" style="width:100px; height: 100px;">
                 </td>
-                <td class="text-capitalize">{{ $row->alamat }}</td>
-                <td class="text-capitalize">{{ $row->no_telp }}</td>
-                <td class="text-lowercase">{{ $row->user->status }}</td>
+                <td class="text-capitalize">{{ $row->member->alamat }}</td>
+                <td class="text-capitalize">{{ $row->member->no_telp }}</td>
+                <td class="text-lowercase">{{ $row->status }}</td>
                 <td>
-                  <a href="/updatebanksampah/{{ $row->user_id }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
-                  <a href="/rejectbanksampah/{{ $row->user_id }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
+                  <a href="/updateclient/{{ $row->id }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
+                  <a href="/rejectclient/{{ $row->id }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
                 </td>
                 </tr>
                 @endforeach
                   </tbody>
                 </table>
-                {{ $data->links() }}
+             
               </div>
               <!-- /.card-body -->
              

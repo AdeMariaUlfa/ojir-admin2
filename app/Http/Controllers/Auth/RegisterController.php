@@ -33,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::LOGIN;
 
     /**
      * Create a new controller instance.
@@ -140,5 +140,11 @@ class RegisterController extends Controller
 
 
         return $user;
+    }
+
+    public function showBankSampah(Request $request)
+    {
+        $data = BankSampah::where('user_id', $request->filter)->first();
+        return $data;
     }
 }

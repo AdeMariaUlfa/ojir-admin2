@@ -30,8 +30,13 @@
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register Bank Sampah</a>
+                            @endif
+                            @if (Route::has('registerMember'))
+                            <a href="{{ route('registerMember') }}" class="ml-4 text-sm text-gray-700 underline">Register Member</a>
+
                         @endif
+
                     @endif
                 </div>
             @endif

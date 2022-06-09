@@ -121,21 +121,30 @@ button:hover {
                 <!-- One "tab" for each step in the form: -->
                 <div class="tab">
                 <label>{{ __('Pilih Bank Sampah') }}</label>
-                  <div class="mb-3">
+                  <div class="mb-1">
                       <select class="form-select" name="banksampah" id="banksampah" aria-label="Default select example"> 
                           <option selected>Pilih Bank Sampah</option>
                           @foreach ($data as $index => $row)
-                            <option value="{{ $row->id }}">{{ $row->name }}</option>
+                            <option value="{{ $row->bank_sampah->id }}">{{ $row->name }}</option>
                           @endforeach
                       </select> 
                   </div>
-                  <p><input placeholder="Alamat bank sampah..." id="alamat" oninput="this.className = ''" name="lname"></p>
-                  <p><input placeholder="Kota / kabupaten..." id="kota_kab" oninput="this.className = ''" name="lname"></p>
-                  <p><input placeholder="Pemilik..." id="pemilik" oninput="this.className = ''" name="lname"></p>
+                  <label>{{ __('Alamat Bank Sampah') }}</label>
+                  <div class="mb-1">
+                      <input id="alamat" type="text" oninput="this.className = ''" class="form-control"  readonly>
+                  </div>
+                  <label>{{ __('Kota / Kabupaten') }}</label>
+                  <div class="mb-1">
+                      <input id="kota_kab" type="text" oninput="this.className = ''" class="form-control"  readonly>
+                  </div>
+                  <label>{{ __('Pemilik') }}</label>
+                  <div class="mb-1">
+                      <input id="pemilik" type="text" oninput="this.className = ''" class="form-control"  readonly>
+                  </div>
                 </div>
                 <div class="tab">
                   <label>{{ __('Pilih Role Member') }}</label>
-                  <div class="mb-3">
+                  <div class="mb-1">
                     <select class="form-select" name="role" aria-label="Default select example">
                         <option selected>Pilih jenis member</option>
                           <option value="keuangan">Admin Keuangan</option>
@@ -144,7 +153,7 @@ button:hover {
                     </select>
                     </div>
                   <label>{{ __('Nama Lengkap') }}</label>
-                  <div class="mb-3">
+                  <div class="mb-1">
                       <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                       @error('name')
                       <span class="invalid-feedback" role="alert">
@@ -153,7 +162,7 @@ button:hover {
                       @enderror
                     </div>
                   <label>{{ __('No KTP') }}</label>
-                  <div class="mb-3">
+                  <div class="mb-1">
                       <input id="no_ktp" type="text" min="16" max="16" onkeypress="return isNumber(event)" class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp" value="{{ old('no_ktp') }}" required autocomplete="no_ktp" autofocus>
                       @error('no_ktp')
                       <span class="invalid-feedback" role="alert">
@@ -162,14 +171,14 @@ button:hover {
                       @enderror
                     </div>
                   <label>{{ __('Upload KTP') }}</label>
-                  <div class="mb-3">
+                  <div class="mb-1">
                     <div class="custom-file">
                       <input id="upload_ktp" type="file" class="custom-file-input" name="upload_ktp">
                       <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     </div>
                   <label>{{ __('Jenis Kelamin') }}</label>
-                  <div class="mb-3">
+                  <div class="mb-1">
                     <select class="form-select" name="gender" aria-label="Default select example">
                         <option selected>Pilih jenis kelamin</option>
                           <option value="laki">Laki-laki</option>
@@ -177,7 +186,7 @@ button:hover {
                     </select>
                   </div>
                   <label>{{ __('Alamat') }}</label>
-                  <div class="mb-3">
+                  <div class="mb-1">
                       <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
                       @error('alamat')
                       <span class="invalid-feedback" role="alert">
@@ -186,7 +195,7 @@ button:hover {
                       @enderror
                     </div>
                   <label>{{ __('No Telp') }}</label>
-                  <div class="mb-3">
+                  <div class="mb-1">
                       <input type="tel" onkeypress="return isNumber(event)" id="no_telp" name="no_telp" pattern="[0-9]{11,13}" class="form-control @error('no_telp') is-invalid @enderror" value="{{ old('no_telp') }}" required autocomplete="no_telp" autofocus>
                       @error('no_telp')
                       <span class="invalid-feedback" role="alert">
@@ -195,7 +204,7 @@ button:hover {
                       @enderror
                     </div>
                   <label>{{ __('Email') }}</label>
-                  <div class="mb-3">
+                  <div class="mb-1">
                       <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                       @error('email')
                       <span class="invalid-feedback" role="alert">
@@ -204,7 +213,7 @@ button:hover {
                       @enderror
                   </div>
                   <label for="password" class="form-label">{{ __('Password') }}</label>
-                    <div class="mb-3">
+                    <div class="mb-1">
                       <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                       @error('password')
                       <span class="invalid-feedback" role="alert">
@@ -213,10 +222,10 @@ button:hover {
                       @enderror
                     </div>
                     <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
-                    <div class="mb-3">
+                    <div class="mb-1">
                       <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                     </div>
-                </div>
+                </div><br>
                 <div style="overflow:auto;">
                   <div style="float:right;">
                     <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>

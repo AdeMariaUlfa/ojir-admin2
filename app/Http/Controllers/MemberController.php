@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\User;
+use App\Models\BankSampah;
+use Auth;
 
 class MemberController extends Controller
 {
@@ -20,7 +22,7 @@ class MemberController extends Controller
         }else{
             $data = Member::paginate(10);
         }
-
+        
         return view('member.member', compact('data'));
     }
     public function updateMember($id)
@@ -36,8 +38,11 @@ class MemberController extends Controller
 
     public function indexClient()
     {
-        $data = User::where('role','client')->with('member')->get();
-        // dd($data);
+        $id = Auth::user()->id;
+        $banksampah = BankSampah::where('user_id', $id)->first();
+        $data = User::join('members','members.user_id','=','users.id')->where(
+            'users.role','client')->where('banksampah_id', $banksampah->id)->select(
+            'members.*','users.*')->get();
         return view('member.client', compact('data'));
     }
     public function updateClient($id)
@@ -46,6 +51,25 @@ class MemberController extends Controller
         return redirect()->back();
     }
     public function rejectClient($id)
+    {
+        User::find($id)->update(['status'=>'no']);
+        return redirect()->back();
+    }
+    public function indexLocalHero()
+    {
+        $id = Auth::user()->id;
+        $banksampah = BankSampah::where('user_id', $id)->first();
+        $data = User::join('members','members.user_id','=','users.id')->where(
+            'users.role','localhero')->where('banksampah_id', $banksampah->id)->select(
+            'members.*','users.*')->get();
+        return view('member.localhero', compact('data'));
+    }
+    public function updateLocalHero($id)
+    {
+        User::find($id)->update(['status'=>'yes']);
+        return redirect()->back();
+    }
+    public function rejectLocalHero($id)
     {
         User::find($id)->update(['status'=>'no']);
         return redirect()->back();

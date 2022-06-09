@@ -16,6 +16,7 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('banksampah_id')->references('id')->on('bank_sampahs');
             $table->string('no_ktp');
             $table->string('upload_ktp');
             $table->enum('gender', ['laki', 'perempuan']);

@@ -130,6 +130,7 @@ class RegisterController extends Controller
             $path = $file->move('foto_ktp_member/', $file->getClientOriginalName());
         }
         Member::create([
+            'banksampah_id' => $data['banksampah'],
             'user_id' => $user->id,
             'no_ktp' => $data['no_ktp'],
             'gender' => $data['gender'],
@@ -144,7 +145,7 @@ class RegisterController extends Controller
 
     public function showBankSampah(Request $request)
     {
-        $data = BankSampah::where('user_id', $request->filter)->first();
+        $data = BankSampah::where('id', $request->filter)->first();
         return $data;
     }
 }

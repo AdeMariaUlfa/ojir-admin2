@@ -10,7 +10,7 @@
           <h6 class="font-weight-bolder text-light mb-0">Client</h6><br>
 </div>
           <div class="container">
-          <a href="" class="btn btn-sm btn-success">TAMBAH +</a><br>
+          <!-- <a href="" class="btn btn-sm btn-success">TAMBAH +</a><br> -->
         <div class="row g-3 align-items-center ">
           <div class="col-auto">
             <form action="{{ route('member') }}" method="GET">
@@ -38,6 +38,7 @@
                       <th>KTP</th>
                       <th>ALAMAT</th>
                       <th>NO TELP</th>
+                      <th>ROLE</th>
                       <th>STATUS VERIFIKASI</th>
                       <th>AKSI</th>
                     </tr>
@@ -56,6 +57,7 @@
                 </td>
                 <td class="text-capitalize">{{ $row->alamat }}</td>
                 <td class="text-capitalize">{{ $row->no_telp }}</td>
+                <td class="text-lowercase">{{ $row->user->role }}</td>
                 <td class="text-lowercase">{{ $row->user->status }}</td>
                 <td>
                   <a href="/updatebanksampah/{{ $row->user_id }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>

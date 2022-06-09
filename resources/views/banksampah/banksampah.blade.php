@@ -10,7 +10,7 @@
           <h6 class="font-weight-bolder text-light mb-0">Bank Sampah</h6><br>
 </div>
           <div class="container">
-          <a href="" class="btn btn-sm btn-success">TAMBAH +</a><br>
+          <!-- <a href="" class="btn btn-sm btn-success">TAMBAH +</a><br> -->
         <div class="row g-3 align-items-center ">
           <div class="col-auto">
             <form action="{{ route('banksampah') }}" method="GET">

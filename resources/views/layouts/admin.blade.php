@@ -226,10 +226,18 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('client') }}" class="nav-link">
+              <a href="/client/ {{ Auth::user()->member }}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Data Client 
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('localhero') }}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Data Local Hero 
                 </p>
               </a>
             </li>

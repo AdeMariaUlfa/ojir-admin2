@@ -131,7 +131,7 @@ button:hover {
                   </div>
                   <label>{{ __('Alamat Bank Sampah') }}</label>
                   <div class="mb-1">
-                      <input id="alamat" type="text" oninput="this.className = ''" class="form-control"  readonly>
+                      <textarea id="alamat" type="text" oninput="this.className = ''" class="form-control"  readonly></textarea>
                   </div>
                   <label>{{ __('Kota / Kabupaten') }}</label>
                   <div class="mb-1">
@@ -187,7 +187,7 @@ button:hover {
                   </div>
                   <label>{{ __('Alamat') }}</label>
                   <div class="mb-1">
-                      <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
+                      <textarea id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus></textarea>
                       @error('alamat')
                       <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

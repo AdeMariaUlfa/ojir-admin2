@@ -53010,4 +53010,47 @@ a.text-muted:hover {
   border-color: #4b545c !important;
 }
 
+.grid-margin {
+    margin-bottom: 2.5rem;
+}
+
+.stretch-card > .card {
+  width: 100%;
+  min-width: 100%;
+}
+
+.stretch-card {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  -webkit-justify-content: stretch;
+  justify-content: stretch;
+}
+
+.card.tale-bg {
+  background: #DAE7FF;
+}
+
+.card-people {
+  position: relative;
+  padding-top: 20px;
+}
+
+.weather-info {
+  position: absolute;
+  top: 30px;
+  right: 24px;
+}
+
+.card-people .weather-info .location {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.weather-info .location {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
 /*# sourceMappingURL=adminlte.css.map */

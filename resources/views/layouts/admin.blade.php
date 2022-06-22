@@ -200,7 +200,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item menu-open">
-              <a href="/" class="nav-link active">
+              <a href="/home" class="nav-link active">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -211,7 +211,7 @@
             </li>
             <li class="nav-item">
               <a href="{{ route('banksampah') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon fas fa-user-cog"></i>
                 <p>
                   Data Bank Sampah
                 </p>
@@ -219,7 +219,7 @@
             </li>
             <li class="nav-item">
               <a href="{{ route('member') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon 	fas fa-user-friends"></i>
                 <p>
                   Data Semua Member 
                 </p>
@@ -227,17 +227,33 @@
             </li>
             <li class="nav-item">
               <a href="/client/ {{ Auth::user()->member }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon far fa-address-card"></i>
                 <p>
                   Data Client 
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('localhero') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
+              <a href="/localhero/ {{ Auth::user()->member }}" class="nav-link">
+                <i class="nav-icon fas fa-motorcycle"></i>
                 <p>
                   Data Local Hero 
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/point/ {{ Auth::user()->member }}" class="nav-link">
+                <i class="nav-icon	fas fa-donate"></i>
+                <p>
+                  Data Point
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/pointMember/ {{ Auth::user()->member }}" class="nav-link">
+                <i class="nav-icon	fas fa-donate"></i>
+                <p>
+                  Data Point Member
                 </p>
               </a>
             </li>
@@ -264,7 +280,7 @@
                   Data Detail Transaksi
                 </p>
               </a>
-            </li>
+            </li>-->
             <li class="nav-header">Manual-Book</li>
             <li class="nav-item">
             <a href="/manualbook" class="nav-link">
@@ -273,7 +289,7 @@
                 Jenis Sampah
               </p>
             </a>
-            </li>-->
+            </li>
             <li class="nav-header">Other Menu</li>
             <li class="nav-item">
               <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();

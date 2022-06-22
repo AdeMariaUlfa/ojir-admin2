@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
+use App\Models\BankSampah;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,10 +24,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $banksampah = BankSampah::count();
+        $client = User::where('role','client')->count();
+        $localhero = User::where('role','localhero')->count();
+        return view('dashboard', compact('banksampah', 'client', 'localhero'));
     }
     public function login()
     {
         return view('auth.login');
     }
+    public function manualbook()
+    { 
+        return view('layouts.manualbook');
+    }
+    
 }

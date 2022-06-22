@@ -36,8 +36,6 @@
                       <th>EMAIL</th>
                       <th>JENIS KELAMIN</th>
                       <th>KTP</th>
-                      <th>ALAMAT</th>
-                      <th>NO TELP</th>
                       <th>ROLE</th>
                       <th>STATUS VERIFIKASI</th>
                       <th>AKSI</th>
@@ -48,15 +46,13 @@
                 $no = 1;
                 @endphp
                 @foreach ($data as $index => $row)
-                <th scope="row">{{ $row->id }}</th>
+                <th scope="row">{{ $index + $data->firstItem() }}</th>
                 <td class="text-uppercase">{{ $row->user->name }}</td>
                 <td class="text-lowercase">{{ $row->user->email }}</td>
                 <td class="text-capitalize">{{ $row->gender }}</td>
                 <td>
-                  <img src="{{ asset($row->upload_ktp) }}" alt="" style="width:100px; height: 100px;">
+                  <img src="{{ asset($row->upload_ktp) }}" alt="" style="width:150px; height: 100px;">
                 </td>
-                <td class="text-capitalize">{{ $row->alamat }}</td>
-                <td class="text-capitalize">{{ $row->no_telp }}</td>
                 <td class="text-lowercase">{{ $row->user->role }}</td>
                 <td class="text-lowercase">{{ $row->user->status }}</td>
                 <td>

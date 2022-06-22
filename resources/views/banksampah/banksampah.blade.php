@@ -47,7 +47,7 @@
                 $no = 1;
                 @endphp
                 @foreach ($data as $index => $row)
-                <th scope="row">{{ $row->id }}</th>
+                <th scope="row">{{ $index + $data->firstItem() }}</th>
                 <td class="text-uppercase">{{ $row->user->name }}</td>
                 <td class="text-lowercase">{{ $row->user->email }}</td>
                 <td class="text-capitalize">{{ $row->pemilik }}</td>

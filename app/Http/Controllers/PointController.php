@@ -64,8 +64,7 @@ class PointController extends Controller
     }
     public function addpointMember()
     {
-        $bs = BankSampah::join('users','users.id','=','bank_sampahs.user_id')->crossjoin(
-        'points','bank_sampahs.id','=','points.banksampah_id')->select(
+        $bs = BankSampah::join('users','users.id','=','bank_sampahs.user_id')->select(
         'bank_sampahs.id','users.name')->get();
         $client = User::where('role','client')->get();
         return view('pointdetail.tambah-point', compact('bs','client'));
@@ -74,10 +73,17 @@ class PointController extends Controller
     {
         $bs = Point::where('banksampah_id', $request->banksampah_id)->where(
             'berat','<=',$request->berat)->first();
-            
-        DetailPoint::create(['user_id'        => $request->input('user_id'),
+            if($bs == null){
+                DetailPoint::create(['user_id'        => $request->input('user_id'),
+                'point'          => 0,
+                'jumlah'          => $request->input('berat')]);
+            }
+            else{
+                DetailPoint::create(['user_id'        => $request->input('user_id'),
                        'point'          => (int) $bs->point,
                        'jumlah'          => $request->input('berat')]);
+            }
+        
         return redirect()->route('pointMember')->with('success','data berhasil ditambahkan!');
     }
 }

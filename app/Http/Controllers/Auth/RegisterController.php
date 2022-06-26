@@ -34,7 +34,8 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::LOGIN;
-
+    private $firebaseUser;
+    private $firebaseBankSampah;
     /**
      * Create a new controller instance.
      *
@@ -43,6 +44,8 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->firebaseUser = new \App\Models\Firebase\UserFirebase();
+        $this->firebaseBankSampah = new \App\Models\Firebase\BankSampahFirebase();
     }
 
     /**
@@ -106,6 +109,10 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
         ]);
 
+        //firebase 
+        $user_id = $this->firebaseUser->createUser($data);
+        $this->firebaseUser->createBankSampahUser($data,$user_id);
+
         return $user;
     }
 
@@ -139,6 +146,10 @@ class RegisterController extends Controller
             'upload_ktp' => $path
         ]);
 
+        //firebase
+        $user_id = $this->firebaseUser->createMember($data);
+        $data['path'] = $path;
+        $this->firebaseUser->createBankSampahMember($data,$user_id);
 
         return $user;
     }
@@ -146,6 +157,10 @@ class RegisterController extends Controller
     public function showBankSampah(Request $request)
     {
         $data = BankSampah::where('id', $request->filter)->first();
+
+        //firbase => fyi id yg ada di database tidak sama dengan di firebase jadi mungkin body request filter get id dulu dari firebae
+        $dataFirebase = $this->firebaseBankSampah->showBankSampah($request->filter);
+        //kalau id as body request filter berasal dari firebase bisa di retuen dataFirebase
         return $data;
     }
 }

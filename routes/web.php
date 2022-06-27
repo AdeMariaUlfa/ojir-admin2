@@ -6,6 +6,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PointController; 
 use App\Http\Controllers\HomeController; 
+use App\Http\Controllers\Auth\LoginController; 
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 
 Auth::routes();
+
+//firebase
+Route::post('/firebase/login', [RegisterController::class, 'registerMember'])->name('firebaseLogin');
 
 Route::namespace('b')->group(function() {
 

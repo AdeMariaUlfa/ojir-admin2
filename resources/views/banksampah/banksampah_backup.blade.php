@@ -48,25 +48,22 @@
                 @endphp
                 @foreach ($data as $index => $row)
                 <th scope="row">{{ $index + 1 }}</th>
-                <td class="text-uppercase">{{ $row['name'] }}</td>
-                <td class="text-lowercase">{{ $row['email'] }}</td>
-                <td class="text-capitalize">{{ $row['pemilik'] }}</td>
-                <td class="text-capitalize">{{ $row['alamat_banksampah'] }}</td>
-                <td>{{ $row['tanggal_berdiri'] }}</td>
-                <td class="text-capitalize">{{ $row['kota_kab'] }}</td>
-                <td class="text-lowercase">{{ $row['status'] }}</td>
+                <td class="text-uppercase">{{ $row->user->name }}</td>
+                <td class="text-lowercase">{{ $row->user->email }}</td>
+                <td class="text-capitalize">{{ $row->pemilik }}</td>
+                <td class="text-capitalize">{{ $row->alamat_banksampah }}</td>
+                <td>{{ $row->tanggal_berdiri }}</td>
+                <td class="text-capitalize">{{ $row->kota_kab }}</td>
+                <td class="text-lowercase">{{ $row->user->status }}</td>
                 <td>
-                  @if($row['status'] == 'no')
-                  <a href="/updatebanksampah/{{ $row['user_id'] }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
-                  @else
-                  <a href="/rejectbanksampah/{{ $row['user_id'] }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
-                  @endif
+                  <a href="/updatebanksampah/{{ $row->user_id }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
+                  <a href="/rejectbanksampah/{{ $row->user_id }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
                 </td>
                 </tr>
                 @endforeach
                   </tbody>
                 </table>
-               
+                {{ $data->links() }}
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">

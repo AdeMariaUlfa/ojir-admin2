@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Session;
 class LoginController extends Controller
 {
     /*
@@ -26,6 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
+    private $firebaseUser;
     protected $redirectTo = RouteServiceProvider::LOGIN;
 
     /**
@@ -36,5 +39,21 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->firebaseUser = new \App\Models\Firebase\UserFirebase();
+    }
+
+    public function loginFirebase(Request $request){
+        $getUser = $this->firebaseUser->loginFirebase($request->email);
+        if($getUser == null)
+        {
+            return redirect()->back()->with('email tidak ditemukan!');
+        }else{
+            if(!Hash::check($request->password, $getUser['password'])){
+                return redirect()->back()->with('password salah!');
+            }else{
+                Session::put('dataUser',$getUser);
+                return redirect('dashboard');
+            }
+        }
     }
 }

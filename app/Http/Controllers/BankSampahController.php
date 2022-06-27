@@ -13,25 +13,39 @@ class BankSampahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $firebaseBankSampah;
+    public function __construct()
+    {
+        //$this->middleware('authfirebase');
+        $this->firebaseBankSampah = new \App\Models\Firebase\BankSampahFirebase();
+    }
+
     public function index(Request $request)
     {
         if($request->has('search')){
-            $data = BankSampah::where('pemilik','LIKE','%' .$request->search.'%')->paginate(5);
+            //$data = BankSampah::where('pemilik','LIKE','%' .$request->search.'%')->paginate(5);
+            //firebase
+            $data = $this->firebaseBankSampah->search($request->search,5);
         }else{
-            $data = BankSampah::paginate(10);
+           // $data = BankSampah::paginate(10);
+            //firebase
+            $data = $this->firebaseBankSampah->getAll();
         }
-
+        //return $data;
         return view('banksampah.banksampah', compact('data'));
     }
 
     public function update($id)
     {
-        User::find($id)->update(['status'=>'yes']);
+        //User::find($id)->update(['status'=>'yes']);
+        $this->firebaseBankSampah->updateOrReject($id,'yes');
         return redirect()->back();
     }
     public function reject($id)
     {
-        User::find($id)->update(['status'=>'no']);
+        //User::find($id)->update(['status'=>'no']);
+        //firebase
+        $this->firebaseBankSampah->updateOrReject($id,'no');
         return redirect()->back();
     }
     

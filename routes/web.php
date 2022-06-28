@@ -70,4 +70,7 @@ Route::get('/viewpointMember/{id}', [PointController::class, 'viewpointMember'])
 Route::post('/updatepointMember/{id}', [PointController::class, 'updatepointMember'])->name('updatepoint');
 Route::get('/deletepointMember/{id}', [PointController::class, 'deletepointMember'])->name('deletepoint');
 
+//apimobile
+Route::post('/api/get_point/member', [PointController::class, 'getGurrentPointBankSampa']);
+
 Route::get('/manualbook', [HomeController::class, 'manualbook'])->name('manualbook');

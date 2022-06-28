@@ -74,9 +74,10 @@ class PointController extends Controller
         $bs = Point::where('banksampah_id', $request->banksampah_id)->where(
             'berat','<=',$request->berat)->first();
             if($bs == null){
-                DetailPoint::create(['user_id'        => $request->input('user_id'),
+                DetailPoint::create([
+                'user_id'        => $request->input('user_id'),
                 'point'          => 0,
-                'jumlah'          => $request->input('berat')]);
+                'jumlah'         => $request->input('berat')]);
             }
             else{
                 DetailPoint::create(['user_id'        => $request->input('user_id'),
@@ -85,5 +86,37 @@ class PointController extends Controller
             }
         
         return redirect()->route('pointMember')->with('success','data berhasil ditambahkan!');
+    }
+
+    public function getGurrentPointBankSampa(Request $request)
+    {
+        if($request->banksampah_id != null){
+            if($request->berat != null){
+                $data =  Point::where('banksampah_id', $request->banksampah_id)->first();
+                if($data){
+                    $berat = $request->berat;
+                    $result = $data->point * $berat;
+                    return response()->json([
+                        'status'=>'success',
+                        'result'=>$result
+                    ]);
+                }else{
+                    return response()->json([
+                        'status'=>'error',
+                        'result'=>'point was not found!'
+                    ]);
+                }
+            }else{
+                return response()->json([
+                        'status'=>'error',
+                        'result'=>'berat is required!'
+                    ]);
+            }
+        }else{
+            return response()->json([
+                        'status'=>'error',
+                        'result'=>'banksampah_id is required!'
+                    ]);
+        }
     }
 }

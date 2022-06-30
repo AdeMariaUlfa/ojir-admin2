@@ -61,4 +61,47 @@ class User extends Authenticatable
     {
         return $this->hasOne(Member::class, 'user_id', 'id');
     }
+
+    public function isAdminBankSampah()
+    {
+        if($this->role == 'banksampah'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function isAdminKeuangan()
+    {
+        if($this->role == 'keuangan'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function isLocalHero()
+    {
+        if($this->role == 'localhero'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function isClient()
+    {
+        if($this->role == 'client'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public function hasRole($role)
+    {
+       switch($role){
+           case 'banksampah' : return \Auth::user()->isAdminBankSampah();
+           case 'keuangan': return \Auth::user()->isAdminKeuangan();
+           case 'localhero' : return \Auth::user()->isLocalHero();
+           case 'client' : return \Auth::user()->isClient();
+       }
+       return false;
+    }
 }

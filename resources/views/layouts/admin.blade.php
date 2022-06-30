@@ -257,6 +257,14 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('laporan') }}" class="nav-link">
+                <i class="nav-icon fas fa-file-alt"></i>
+                <p>
+                  Data Laporan
+                </p>
+              </a>
+            </li>
            <!--  <li class="nav-item">
               <a href="/point" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>

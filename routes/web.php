@@ -26,9 +26,8 @@ Auth::routes();
 //firebase
 Route::post('/firebase/login', [RegisterController::class, 'registerMember'])->name('firebaseLogin');
 
-Route::namespace('b')->group(function() {
+Route::namespace('b')->group(function() {});
 
-});
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/register/member', [RegisterController::class, 'showRegistrationFormMember'])->name('register.member');
@@ -36,20 +35,24 @@ Route::post('/register/member', [RegisterController::class, 'registerMember'])->
 Route::get('/register/memberGetBankSampah', [RegisterController::class, 'showBankSampah'])->name('showBankSampah');
 
 
+// Route login dengan role admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::get('/banksampah', [BankSampahController::class, 'index'])->name('banksampah');
 Route::get('/updatebanksampah/{id}', [BankSampahController::class, 'update'])->name('updatebanksampah');
 Route::get('/rejectbanksampah/{id}', [BankSampahController::class, 'reject'])->name('updatebanksampah');
 
-
 Route::get('/member', [MemberController::class, 'indexMember'])->name('member');
 Route::get('/updatemember/{id}', [MemberController::class, 'updateMember'])->name('updatemember');
 Route::get('/rejectmember/{id}', [MemberController::class, 'rejectMember'])->name('updatemember');
+});
 
+
+// Route login dengan role admin
+Route::middleware(['auth', 'role:banksampah,keuangan'])->group(function () {
 
 Route::get('/client/{id?}', [MemberController::class, 'indexClient'])->name('client');
 Route::get('/updateclient/{id}', [MemberController::class, 'updateClient'])->name('updateclient');
 Route::get('/rejectclient/{id}', [MemberController::class, 'rejectClient'])->name('updateclient');
-
 
 Route::get('/localhero', [MemberController::class, 'indexLocalHero'])->name('localhero');
 Route::get('/updatelocalhero/{id}', [MemberController::class, 'updateLocalHero'])->name('updatelocalhero');
@@ -62,13 +65,19 @@ Route::get('/viewpoint/{id}', [PointController::class, 'viewpoint'])->name('view
 Route::post('/updatepoint/{id}', [PointController::class, 'updatepoint'])->name('updatepoint');
 Route::get('/deletepoint/{id}', [PointController::class, 'deletepoint'])->name('deletepoint');
 
+Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');
+});
 
 Route::get('/pointMember', [PointController::class, 'indexMember'])->name('pointMember');
 Route::get('/addpointMember', [PointController::class, 'addpointMember'])->name('addpointMember');
 Route::post('/postpointMember', [PointController::class, 'postpointMember'])->name('postpoint');
-Route::get('/viewpointMember/{id}', [PointController::class, 'viewpointMember'])->name('viewpoint');
-Route::post('/updatepointMember/{id}', [PointController::class, 'updatepointMember'])->name('updatepoint');
-Route::get('/deletepointMember/{id}', [PointController::class, 'deletepointMember'])->name('deletepoint');
+
+
+Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');
+
+// nb
+// minta tolong ditambahkan middleware untuk akses role client->hanya bisa mengakses menu view pointMember
+// dan role->localhero bisa mengakses addpointMember, terimakasih
 
 //apimobile
 Route::post('/api/get_point/member', [PointController::class, 'getGurrentPointBankSampa']);

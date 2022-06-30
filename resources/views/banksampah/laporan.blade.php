@@ -10,7 +10,6 @@
           <h6 class="font-weight-bolder text-light mb-0">Point Member</h6><br>
 </div>
           <div class="container">
-          <a href="/addpointMember" class="btn btn-sm btn-success">TAMBAH +</a><br>
         <div class="row g-3 align-items-center ">
           <div class="col-auto">
             <form action="{{ route('localhero') }}" method="GET">
@@ -37,6 +36,7 @@
                       <th>BERAT</th>
                       <th>DIBUAT</th>
                     </tr>
+                    
                   </thead>
                   <tbody>
                   @php
@@ -48,8 +48,15 @@
                 <td>{{ $row->point }}</td>
                 <td>{{ $row->jumlah }} kg</td>
                 <td>{{ $row->created_at->format('D M Y') }}</td>
-                </tr>
+                
+                <tr>{{ $row->total_point }}</tr>
+                <tr>{{ $row->total_berat }}</tr>
                 @endforeach
+                <tr>
+                        <th>TOTAL</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                   </tbody>
                 </table>
              

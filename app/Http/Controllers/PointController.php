@@ -87,6 +87,16 @@ class PointController extends Controller
         
         return redirect()->route('pointMember')->with('success','data berhasil ditambahkan!');
     }
+    
+    public function laporan()
+    {
+        // tolong ditambahkan untuk penjumlahan total point dan berat, terimakasih
+        $id = Auth::user()->id;
+        $banksampah = BankSampah::where('user_id', $id)->first();
+        $data = DetailPoint::join('users','users.id','=','detail_points.user_id')->select(
+            'detail_points.*','users.name')->get();
+        return view('banksampah.laporan', compact('data'));
+    }
 
     public function getGurrentPointBankSampa(Request $request)
     {

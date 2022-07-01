@@ -56,8 +56,6 @@ class PointController extends Controller
 
     public function indexMember()
     {
-        $id = Auth::user()->id;
-        $banksampah = BankSampah::where('user_id', $id)->first();
         $data = DetailPoint::join('users','users.id','=','detail_points.user_id')->select(
             'detail_points.*','users.name')->get();
         return view('pointdetail.point-detail', compact('data'));

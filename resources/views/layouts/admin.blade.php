@@ -242,7 +242,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="/point/ {{ Auth::user()->member }}" class="nav-link">
+              <a href="/point" class="nav-link">
                 <i class="nav-icon	fas fa-donate"></i>
                 <p>
                   Data Point
@@ -250,7 +250,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="/pointMember/ {{ Auth::user()->member }}" class="nav-link">
+              <a href="/pointMember" class="nav-link">
                 <i class="nav-icon	fas fa-donate"></i>
                 <p>
                   Data Point Member

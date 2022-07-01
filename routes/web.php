@@ -68,9 +68,17 @@ Route::get('/deletepoint/{id}', [PointController::class, 'deletepoint'])->name('
 Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');
 });
 
+// Route login dengan role client
+Route::middleware(['auth', 'role:client,localhero'])->group(function () {
 Route::get('/pointMember', [PointController::class, 'indexMember'])->name('pointMember');
+});
+
+// Route login dengan role admin
+Route::middleware(['auth', 'role:localhero'])->group(function () {
 Route::get('/addpointMember', [PointController::class, 'addpointMember'])->name('addpointMember');
 Route::post('/postpointMember', [PointController::class, 'postpointMember'])->name('postpoint');
+});
+
 
 
 Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');

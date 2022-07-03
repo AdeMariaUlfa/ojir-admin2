@@ -28,19 +28,21 @@ class MemberController extends Controller
            $data = $this->firebaseMember->search($request->search,5);
         }else{
             //$data = Member::paginate(10);
-            $data = $this->firebaseBankSampah->getAll();
+            $data = $this->firebaseMember->getAll();
         }
         
         return view('member.member', compact('data'));
     }
     public function updateMember($id)
     {
-        User::find($id)->update(['status'=>'yes']);
+        //User::find($id)->update(['status'=>'yes']);
+        $this->firebaseMember->updateOrReject($id,'yes');
         return redirect()->back();
     }
     public function rejectMember($id)
     {
-        User::find($id)->update(['status'=>'no']);
+        //User::find($id)->update(['status'=>'no']);
+        $this->firebaseMember->updateOrReject($id,'no');
         return redirect()->back();
     }
 
@@ -74,12 +76,14 @@ class MemberController extends Controller
     }
     public function updateLocalHero($id)
     {
-        User::find($id)->update(['status'=>'yes']);
+        //User::find($id)->update(['status'=>'yes']);
+        $this->firebaseMember->updateOrReject($id,'yes');
         return redirect()->back();
     }
     public function rejectLocalHero($id)
     {
-        User::find($id)->update(['status'=>'no']);
+        //User::find($id)->update(['status'=>'no']);
+        $this->firebaseMember->updateOrReject($id,'no');
         return redirect()->back();
     }
     /**

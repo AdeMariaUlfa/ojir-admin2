@@ -57,12 +57,14 @@ class MemberController extends Controller
     }
     public function updateClient($id)
     {
-        User::find($id)->update(['status'=>'yes']);
+        //User::find($id)->update(['status'=>'yes']);
+        $this->firebaseMember->updateOrReject($id,'yes');
         return redirect()->back();
     }
     public function rejectClient($id)
     {
-        User::find($id)->update(['status'=>'no']);
+        //User::find($id)->update(['status'=>'no']);
+        $this->firebaseMember->updateOrReject($id,'no');
         return redirect()->back();
     }
     public function indexLocalHero()

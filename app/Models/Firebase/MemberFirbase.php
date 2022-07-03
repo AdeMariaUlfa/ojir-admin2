@@ -2,7 +2,7 @@
 namespace App\Models\Firebase;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-class BankSampahFirebase
+class MemberFirebase
 {
 	private $database;
 
@@ -13,28 +13,32 @@ class BankSampahFirebase
 
     public function getAll()
     {
-        $data = $this->database->getReference('bank_sampahs')->getValue();
+        $data = $this->database->getReference('members')->getValue();
         $result = [];
         $no = 0;
         foreach ($data as $key => $value) {
             $user = $this->hasOneUser($value['user_id']);
             $name = '-';
             $email = '-';
+            $role = '-';
             $status = '-';
             if($user['status'] == true){
                 $name = $user['data']['name'];
                 $email = $user['data']['email'];
                 $status = $user['data']['status'];
+                $role = $user['data']['role'];
             }
             $result[$no]['name'] = $name;
             $result[$no]['email'] = $email;
             $result[$no]['status'] = $status;
+            $result[$no]['role'] = $role;
             $result[$no]['user_id'] = $value['user_id'];
-            $result[$no]['pemilik'] = $value['pemilik'];
-            $result[$no]['tanggal_berdiri'] = $value['tanggal_berdiri'];
-            $result[$no]['alamat_banksampah'] = $value['alamat_banksampah'];
-            $result[$no]['kota_kab'] = $value['kota_kab'];
-            $result[$no]['phone'] = $value['phone'];
+            $result[$no]['gender'] = $value['gender'];
+            $result[$no]['no_ktp'] = $value['no_ktp'];
+            $result[$no]['alamat'] = $value['alamat'];
+            $result[$no]['no_telp'] = $value['no_telp'];
+            $result[$no]['upload_ktp'] = $value['upload_ktp'];
+
             $no++;
         }
         return $result;
@@ -57,7 +61,7 @@ class BankSampahFirebase
 
     public function showBankSampah($filter)
     {
-        $data = $this->database->getReference('bank_sampahs')->getValue();
+        $data = $this->database->getReference('members')->getValue();
         $result = null;
         foreach ($data as $key => $value) {
             if($value['id'] == $filter){
@@ -68,33 +72,36 @@ class BankSampahFirebase
         return $result;
     }
 
-    public function search($pemilik,$paginate)
+    public function search($gender,$paginate)
     {
-        $data = $this->database->getReference('bank_sampahs')->getValue();
+        $data = $this->database->getReference('members')->getValue();
         $result = [];
         $no = 0;
         foreach ($data as $key => $value) {
-            $strsp = str_replace(' ', '', $pemilik);
+            $strsp = str_replace(' ', '', $gender);
             $low = strtolower($strsp);
-            if(stripos($value['pemilik'], $low) !== FALSE){
+            if(stripos($value['gender'], $low) !== FALSE){
                 $user = $this->hasOneUser($value['user_id']);
                 $name = '-';
                 $email = '-';
+                $role = '-';
                 $status = '-';
                 if($user['status'] == true){
                     $name = $user['data']['name'];
                     $email = $user['data']['email'];
                     $status = $user['data']['status'];
+                    $role = $user['data']['role'];
                 }
                 $result[$no]['name'] = $name;
                 $result[$no]['email'] = $email;
                 $result[$no]['status'] = $status;
+                $result[$no]['role'] = $role;
                 $result[$no]['user_id'] = $value['user_id'];
-                $result[$no]['pemilik'] = $value['pemilik'];
-                $result[$no]['tanggal_berdiri'] = $value['tanggal_berdiri'];
-                $result[$no]['alamat_banksampah'] = $value['alamat_banksampah'];
-                $result[$no]['kota_kab'] = $value['kota_kab'];
-                $result[$no]['phone'] = $value['phone'];
+                $result[$no]['gender'] = $value['gender'];
+                $result[$no]['no_ktp'] = $value['no_ktp'];
+                $result[$no]['alamat'] = $value['alamat'];
+                $result[$no]['no_telp'] = $value['no_telp'];
+                $result[$no]['upload_ktp'] = $value['upload_ktp'];
             if($no <= $paginate){
                 break;
             }

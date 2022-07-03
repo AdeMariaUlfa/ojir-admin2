@@ -46,24 +46,26 @@
                 $no = 1;
                 @endphp
                 @foreach ($data as $index => $row)
-                <th scope="row">{{ $index + $data->firstItem() }}</th>
-                <td class="text-uppercase">{{ $row->user->name }}</td>
-                <td class="text-lowercase">{{ $row->user->email }}</td>
-                <td class="text-capitalize">{{ $row->gender }}</td>
+                <th scope="row">{{ $index + 1 }}</th>
+                <td class="text-uppercase">{{ $row['name'] }}</td>
+                <td class="text-lowercase">{{ $row['email'] }}</td>
+                <td class="text-capitalize">{{ $row['gender'] }}</td>
                 <td>
-                  <img src="{{ asset($row->upload_ktp) }}" alt="" style="width:150px; height: 100px;">
+                  <img src="{{ $row['upload_ktp'] }}" alt="" style="width:150px; height: 100px;">
                 </td>
-                <td class="text-lowercase">{{ $row->user->role }}</td>
-                <td class="text-lowercase">{{ $row->user->status }}</td>
+                <td class="text-lowercase">{{ $row['role'] }}</td>
+                <td class="text-lowercase">{{ $row['status'] }}</td>
                 <td>
-                  <a href="/updatebanksampah/{{ $row->user_id }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
-                  <a href="/rejectbanksampah/{{ $row->user_id }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
-                </td>
+                  @if($row['status'] == 'no')
+                  <a href="/updatebanksampah/{{ $row['user_id'] }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
+                  @else
+                  <a href="/rejectbanksampah/{{ $row['user_id'] }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
+                  @endif
                 </tr>
                 @endforeach
                   </tbody>
                 </table>
-                {{ $data->links() }}
+                
               </div>
               <!-- /.card-body -->
              

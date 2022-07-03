@@ -15,12 +15,20 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $firebaseMember;
+    public function __construct()
+    {
+        //$this->middleware('authfirebase');
+        $this->firebaseMember = new \App\Models\Firebase\MemberFirbase();
+    }
     public function indexMember(Request $request)
     {
         if($request->has('search')){
-            $data = Member::where('gender','LIKE','%' .$request->search.'%')->paginate(5);
+           // $data = Member::where('gender','LIKE','%' .$request->search.'%')->paginate(5);
+           $data = $this->firebaseMember->search($request->search,5);
         }else{
-            $data = Member::paginate(10);
+            //$data = Member::paginate(10);
+            $data = $this->firebaseBankSampah->getAll();
         }
         
         return view('member.member', compact('data'));

@@ -14,10 +14,16 @@ class UserFirebase
     public function loginFirebase($email)
     {
         $data = $this->database->getReference('users')->getValue();
-        $result = null;
+        //return $data;
+        $result = [];
         foreach ($data as $key => $value) {
             if($value['email'] == $email){
-                $result = $data[$value['id']];
+                $result['id'] = $key;
+                $result['email'] = $value['email'];
+                $result['name'] = $value['name'];
+                $result['password'] = $value['password'];
+                $result['role'] = $value['role'];
+                $result['status'] = $value['status'];
                 break;
             }
         }

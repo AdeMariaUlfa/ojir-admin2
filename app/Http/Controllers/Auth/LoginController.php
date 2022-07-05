@@ -43,16 +43,17 @@ class LoginController extends Controller
     }
 
     public function loginFirebase(Request $request){
-        $getUser = $this->firebaseUser->loginFirebase($request->email);
-        if($getUser == null)
+        $dataUser = $this->firebaseUser->loginFirebase($request->email);
+        //return $dataUser;
+        if($dataUser == null)
         {
             return redirect()->back()->with('email tidak ditemukan!');
         }else{
-            if(!Hash::check($request->password, $getUser['password'])){
+            if(!Hash::check($request->password, $dataUser['password'])){
                 return redirect()->back()->with('password salah!');
             }else{
                 return $dataUser;
-                //Session::put('dataUser',$getUser);
+                //Session::put('dataUser',$dataUser);
                 return redirect('dashboard');
             }
         }

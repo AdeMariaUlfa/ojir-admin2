@@ -119,10 +119,10 @@ class PointController extends Controller
     {
         if($request->banksampah_id != null){
             if($request->berat != null){
-                $data =  Point::where('banksampah_id', $request->banksampah_id)->first();
+                $data =  $this->firebasePoint->getPointByBankSampahId($request->banksampah_id);
                 if($data){
                     $berat = $request->berat;
-                    $result = $data->point * $berat;
+                    $result = $data['harga'] * $berat;
                     return response()->json([
                         'status'=>'success',
                         'result'=>$result

@@ -24,7 +24,7 @@ Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 Auth::routes();
 
 //firebase
-Route::post('/firebase/login', [RegisterController::class, 'registerMember'])->name('firebaseLogin');
+Route::post('/firebase/login', [LoginController::class, 'loginFirebase'])->name('firebaseLogin');
 
 Route::namespace('b')->group(function() {});
 

@@ -51,7 +51,8 @@ class LoginController extends Controller
             if(!Hash::check($request->password, $getUser['password'])){
                 return redirect()->back()->with('password salah!');
             }else{
-                Session::put('dataUser',$getUser);
+                return $dataUser;
+                //Session::put('dataUser',$getUser);
                 return redirect('dashboard');
             }
         }

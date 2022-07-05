@@ -14,8 +14,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        //$this->middleware('authfirebase');
+        //$this->middleware('auth');
+        $this->middleware('authfirebase');
     }
 
     /**

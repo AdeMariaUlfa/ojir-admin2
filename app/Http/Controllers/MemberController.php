@@ -19,7 +19,7 @@ class MemberController extends Controller
     public function __construct()
     {
         //$this->middleware('authfirebase');
-        $this->firebaseMember = new \App\Models\Firebase\MemberFirbase();
+        $this->firebaseMember = new \App\Models\Firebase\MemberFirebase();
     }
     public function indexMember(Request $request)
     {

@@ -3,6 +3,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Session;
+use Illuminate\Http\Request;
 class AuthFirebase
 {
     /**
@@ -12,11 +13,21 @@ class AuthFirebase
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
-        if(Session::get('dataUser') != null){
-            return $next($request);
+        $dataUser = Session::get('dataUser');
+        //dd($dataUser['role']);
+       //in_array(needle, haystack)
+        if($dataUser == null){
+            return redirect('login');
+        }else{
+            $roleLogin = $dataUser['role'];
+            if(in_array($roleLogin,$roles)){
+                return $next($request);
+           }else{
+                return abort(403, 'anda tidak memiliki akses!');
+            }
         }
-        return redirect('login');
+        // return redirect('login');
     }
 }

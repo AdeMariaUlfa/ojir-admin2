@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\BankSampah;
 use Illuminate\Http\Request;
-
+use Session;
 class HomeController extends Controller
 {
     /**
@@ -25,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+       // return Session::get('dataUser');
         $banksampah = BankSampah::count();
         $client = User::where('role','client')->count();
         $localhero = User::where('role','localhero')->count();

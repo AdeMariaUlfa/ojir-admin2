@@ -4,37 +4,37 @@
 <section class="content-wrapper">
 <div class="container-fluid py-4">
 <div class="card-header"><h5>{{ __('Welcome !') }}
-    @if(Auth::user()->role == 'admin')
+    @if(Session::get('dataUser')['role'] == 'admin')
             <!-- <dt class="col-sm-3">Nama</dt>
-            <dd class="col-sm-9">{{ Auth::user()->name }}</dd>
+            <dd class="col-sm-9">{{ Session::get('dataUser')['name'] }}</dd>
             <dt class="col-sm-3">Email</dt>
-            <dd class="col-sm-9">{{ Auth::user()->email }}</dd> -->
-            {{ Auth::user()->role }} !
+            <dd class="col-sm-9">{{ Session::get('dataUser')['email'] }}</dd> -->
+            {{ Session::get('dataUser')['role'] }} !
             
-    @elseif (Auth::user()->role == 'banksampah')
+    @elseif (Session::get('dataUser')['role'] == 'banksampah')
         <!-- <dl class="row"> -->
             <!-- <dt class="col-sm-3">Email</dt>
-            <dd class="col-sm-9">{{ Auth::user()->email }}</dd> -->
-            {{ Auth::user()->role }}
+            <dd class="col-sm-9">{{ Session::get('dataUser')['email'] }}</dd> -->
+            {{ Session::get('dataUser')['role'] }}
 
             <!-- <dt class="col-sm-3">Pemilik</dt>
             <dd class="col-sm-9">{{ Auth::user()->bank_sampah->pemilik }}</dd> -->
         <!-- </dl> -->
 
-    @elseif (Auth::user()->role == 'client')
+    @elseif (Session::get('dataUser')['role'] == 'client')
             <!-- <dt class="col-sm-3">Nama</dt>
-            <dd class="col-sm-9">{{ Auth::user()->name }}</dd>
+            <dd class="col-sm-9">{{ Session::get('dataUser')['name'] }}</dd>
             <dt class="col-sm-3">Email</dt>
-            <dd class="col-sm-9">{{ Auth::user()->email }}</dd> -->
-            {{ Auth::user()->role }}
+            <dd class="col-sm-9">{{ Session::get('dataUser')['email'] }}</dd> -->
+            {{ Session::get('dataUser')['role'] }}
     
-    @elseif (Auth::user()->role == 'keuangan')
+    @elseif (Session::get('dataUser')['role'] == 'keuangan')
             <!-- <dt class="col-sm-3">Nama</dt>
-            <dd class="col-sm-9">{{ Auth::user()->name }}</dd>
+            <dd class="col-sm-9">{{ Session::get('dataUser')['name'] }}</dd>
 
             <dt class="col-sm-3">Email</dt>
-            <dd class="col-sm-9">{{ Auth::user()->email }}</dd> -->
-            {{ Auth::user()->role }}
+            <dd class="col-sm-9">{{ Session::get('dataUser')['email'] }}</dd> -->
+            {{ Session::get('dataUser')['role'] }}
 </h5>
     @endif
     <dd>Bagaimana kabar anda hari ini? Semoga hari anda menyenangkan!</dd>

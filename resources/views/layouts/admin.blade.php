@@ -178,7 +178,7 @@
             <img src="{{asset('template/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <span> {{ Auth::user()->name }}</span>
+            <span> {{ Session::get('dataUser')['name'] }}</span>
           </div>
         </div>
 
@@ -226,7 +226,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="/client/ {{ Auth::user()->member }}" class="nav-link">
+              <!--  Auth::user()->member -->
+              <a href="/client/  " class="nav-link">
                 <i class="nav-icon far fa-address-card"></i>
                 <p>
                   Data Client 
@@ -234,7 +235,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="/localhero/ {{ Auth::user()->member }}" class="nav-link">
+               <!-- Auth::user()->member -->
+              <a href="/localhero/" class="nav-link">
                 <i class="nav-icon fas fa-motorcycle"></i>
                 <p>
                   Data Local Hero 
@@ -300,11 +302,11 @@
             </li>
             <li class="nav-header">Other Menu</li>
             <li class="nav-item">
-              <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+              <a class="dropdown-item" href="{{ route('logoutFirebase') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 {{ __('Logout') }}</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                <form id="logout-form" action="{{ route('logoutFirebase') }}" method="POST" class="d-none">
                 @csrf
                 </form>
             </li> 

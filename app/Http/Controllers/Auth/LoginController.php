@@ -52,10 +52,16 @@ class LoginController extends Controller
             if(!Hash::check($request->password, $dataUser['password'])){
                 return redirect()->back()->with('password salah!');
             }else{
-                return $dataUser;
-                //Session::put('dataUser',$dataUser);
-                return redirect('dashboard');
+                //return $dataUser;
+                Session::put('dataUser',$dataUser);
+                return redirect('home');
             }
         }
+    }
+
+    public function logoutFirebase()
+    {
+        Session::forget('dataUser');
+        return redirect('/');
     }
 }

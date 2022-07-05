@@ -27,7 +27,7 @@ class PointController extends Controller
         // $data = Point::join('bank_sampahs','bank_sampahs.id','=','points.banksampah_id')->where(
         //     'bank_sampahs.id',$banksampah->id)->select(
         //     'points.*')->get();
-        $data = $this->firebasePoint->getPointByBankSampahId($banksampah['id']);
+        $data = $this->firebasePoint->getPointByBankSampahIdUser($banksampah['id']);
         //return $data;
         return view('banksampah.point', compact('data'));
     }
@@ -119,7 +119,7 @@ class PointController extends Controller
     {
         if($request->banksampah_id != null){
             if($request->berat != null){
-                $data =  $this->firebasePoint->getPointByBankSampahId($request->banksampah_id);
+                $data =  $this->firebasePoint->getPointByBankSampahIdReal($request->banksampah_id);
                 if($data){
                     $berat = $request->berat;
                     $result = $data['harga'] * $berat;

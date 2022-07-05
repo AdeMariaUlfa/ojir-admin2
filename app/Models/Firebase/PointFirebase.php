@@ -11,13 +11,26 @@ class PointFirebase
         $this->database = \App\Services\FirebaseService::connect();
     }
 
-    public function getPointByBankSampahId($id)
+    public function getPointByBankSampahIdUser($id)
     {
         $data = $this->database->getReference('points')->getValue();
         $result = [];
         foreach ($data as $key => $value) {
             $user = $this->hasOneUser($value['banksampah_id']);
             if($user != null){
+                array_push($result, $value);
+            }
+        }
+        return $result;
+    }
+
+     public function getPointByBankSampahIdReal($id)
+    {
+        $data = $this->database->getReference('points')->getValue();
+        $result = [];
+        foreach ($data as $key => $value) {
+            //$user = $this->hasOneUser($value['banksampah_id']);
+            if($value['banksampah_id'] == $id){
                 array_push($result, $value);
             }
         }

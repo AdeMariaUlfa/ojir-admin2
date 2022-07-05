@@ -34,7 +34,7 @@
                       <th style="width: 10px">ID</th>
                       <th>JENIS SAMPAH</th>
                       <th>BERAT</th>
-                      <th>POINT</th>
+                      <th>HARGA</th>
                       <th>DIBUAT</th>
                       <th>AKSI</th>
                     </tr>
@@ -44,14 +44,14 @@
                 $no = 1;
                 @endphp
                 @foreach ($data as $index => $row)
-                <th scope="row">{{ $row->id }}</th>
-                <td>{{ $row->jenis_sampah }}</td>
-                <td>{{ $row->berat }} kg</td>
-                <td>{{ $row->point }}</td>
-                <td>{{ $row->created_at->format('D M Y') }}</td>
+                <th scope="row">{{ $row['id'] }}</th>
+                <td>{{ $row['jenis_sampah'] }}</td>
+                <td>{{ $row['berat'] }} kg</td>
+                <td>{{ $row['harga'] }}</td>
+                <td>{{ \Carbon\Carbon::parse($row['created_at'])->format('D M Y') }}</td>
                 <td>
-                    <a href="/viewpoint/{{ $row->id }}" class="btn btn-warning btn-sm">EDIT</a>
-                    <a href="/deletepoint/{{ $row->id }}" class="btn btn-danger btn-sm" onclick="return confirm('yakin mau dihapus?')">DELETE</a>
+                    <a href="/viewpoint/{{ $row['id'] }}" class="btn btn-warning btn-sm">EDIT</a>
+                    <a href="/deletepoint/{{ $row['id'] }}" class="btn btn-danger btn-sm" onclick="return confirm('yakin mau dihapus?')">DELETE</a>
                 </td>
                 </tr>
                 @endforeach

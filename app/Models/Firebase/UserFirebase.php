@@ -24,10 +24,32 @@ class UserFirebase
                 $result['password'] = $value['password'];
                 $result['role'] = $value['role'];
                 $result['status'] = $value['status'];
+                if($value['role'] == 'banksampah'){
+                    $user = $this->hasOneUser($key);
+                    if($user != null){
+                        $result['pemilik'] = $user['pemilik'];
+                        $result['tanggal_berdiri'] = $user['tanggal_berdiri'];
+                        $result['alamat_banksampah'] = $user['alamat_banksampah'];
+                        $result['kota_kab'] = $user['kota_kab'];
+                        $result['phone'] = $user['phone'];
+                    }
+                }
                 break;
             }
         }
         return $result;
+    }
+
+    public function hasOneUser($user_id)
+    {
+        $data = $this->database->getReference('bank_sampahs')->getValue();
+        $arr = null;
+        foreach ($data as $key => $value) {
+            if($value['user_id'] == $user_id){
+                $arr = $value;
+            }
+        }
+         return $arr;
     }
 
     public function createUser($data)

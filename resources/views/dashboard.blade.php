@@ -18,7 +18,7 @@
             {{ Session::get('dataUser')['role'] }}
 
             <!-- <dt class="col-sm-3">Pemilik</dt>
-            <dd class="col-sm-9">{{ Auth::user()->bank_sampah->pemilik }}</dd> -->
+            <dd class="col-sm-9">{{ Session::get('dataUser')['pemilik'] }}</dd> -->
         <!-- </dl> -->
 
     @elseif (Session::get('dataUser')['role'] == 'client')

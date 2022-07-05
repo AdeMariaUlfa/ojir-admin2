@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-       // return Session::get('dataUser');
+        //return Session::get('dataUser');
         $banksampah = BankSampah::count();
         $client = User::where('role','client')->count();
         $localhero = User::where('role','localhero')->count();

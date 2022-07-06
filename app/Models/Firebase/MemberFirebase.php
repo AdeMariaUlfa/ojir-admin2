@@ -161,8 +161,8 @@ class MemberFirebase
         $result = [];
         $no = 0;
         foreach ($data as $key => $value) {
-            //if($value['banksampah_id'] == $banksampah_id){
-                $user = $this->hasOneUser($value['user_id']);
+            $user = $this->hasOneUser($value['user_id']);
+            if($value['banksampah_id'] == $banksampah_id && $user['data']['role'] == 'client'){
                 $name = '-';
                 $email = '-';
                 $role = '-';
@@ -186,7 +186,7 @@ class MemberFirebase
                 $result[$no]['upload_ktp'] = $value['upload_ktp'];
                 $result[$no]['banksampah_id'] = $value['banksampah_id'];
                 $no++;
-            //}
+            }
         }
         return $result;
     }

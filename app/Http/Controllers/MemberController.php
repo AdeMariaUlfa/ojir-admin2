@@ -55,8 +55,10 @@ class MemberController extends Controller
     {
         $id = $this->firebaseData->auth()['id'];
         $banksampah = $this->firebaseBankSampah->getByUserId($id);
+        // $data = User::join('members','members.user_id','=','users.id')->where(
+        //     'users.role','client')->where('banksampah_id', $banksampah->id)->select(
+        //     'members.*','users.*')->get();
         $data = $this->firebaseMember->getByBankSampahId($banksampah['id']);
-       // return $data;
         return view('member.client', compact('data'));
     }
     public function updateClient($id)

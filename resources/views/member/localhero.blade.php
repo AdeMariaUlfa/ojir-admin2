@@ -34,12 +34,12 @@
                       <th style="width: 10px">ID</th>
                       <th>NAMA</th>
                       <th>EMAIL</th>
-                      <th>JENIS KELAMIN</th>
+                      <!-- <th>JENIS KELAMIN</th> -->
                       <th>KTP</th>
-                      <th>ALAMAT</th>
+                      <!-- <th>ALAMAT</th> -->
                       <th>NO TELP</th>
-                      <th>STATUS VERIFIKASI</th>
-                      <th>AKSI</th>
+                      <!-- <th>STATUS VERIFIKASI</th> -->
+                      <!-- <th>AKSI</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -47,19 +47,19 @@
                 $no = 1;
                 @endphp
                 @foreach ($data as $index => $row)
-                <th scope="row">{{ $row->id }}</th>
-                <td class="text-uppercase">{{ $row->name }}</td>
-                <td class="text-lowercase">{{ $row->email }}</td>
-                <td class="text-capitalize">{{ $row->gender }}</td>
+                <th scope="row">{{ $row['id']}}</th>
+                <td class="text-uppercase">{{ $row['name']}}</td>
+                <td class="text-lowercase">{{ $row['email'] }}</td>
+                <!-- <td class="text-capitalize"></td> -->
                 <td>
-                  <img src="{{ asset($row->upload_ktp) }}" alt="" style="width:150px; height: 100px;">
+                  <img src="{{ $row['photo'] }}" alt="" style="width:150px; height: 100px;">
                 </td>
-                <td class="text-capitalize">{{ $row->alamat }}</td>
-                <td class="text-capitalize">0{{ $row->no_telp }}</td>
-                <td class="text-lowercase">{{ $row->status }}</td>
+                <!-- <td class="text-capitalize"></td> -->
+                <td class="text-capitalize">{{ $row['phone'] }}</td>
+                <!-- <td class="text-lowercase"></td> -->
                 <td>
-                  <a href="/updateclient/{{ $row->id }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
-                  <a href="/rejectclient/{{ $row->id }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
+                 <!--  <a href="/updateclient/" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
+                  <a href="/rejectclient/" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a> -->
                 </td>
                 </tr>
                 @endforeach

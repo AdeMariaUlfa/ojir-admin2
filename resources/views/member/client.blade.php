@@ -47,19 +47,22 @@
                 $no = 1;
                 @endphp
                 @foreach ($data as $index => $row)
-                <th scope="row">{{ $row->id }}</th>
-                <td class="text-uppercase">{{ $row->name }}</td>
-                <td class="text-lowercase">{{ $row->email }}</td>
-                <td class="text-capitalize">{{ $row->gender }}</td>
+                <th scope="row">{{ $row['id']  }}</th>
+                <td class="text-uppercase">{{ $row['name']  }}</td>
+                <td class="text-lowercase">{{ $row['email']  }}</td>
+                <td class="text-capitalize">{{ $row['gender']  }}</td>
                 <td>
-                  <img src="{{ asset($row->member->upload_ktp) }}" alt="" style="width:150px; height: 100px;">
+                  <img src="{{ asset($row['upload_ktp']) }}" alt="" style="width:150px; height: 100px;">
                 </td>
-                <td class="text-capitalize">{{ $row->alamat }}</td>
-                <td class="text-capitalize">0{{ $row->no_telp }}</td>
-                <td class="text-lowercase">{{ $row->status }}</td>
+                <td class="text-capitalize">{{ $row['alamat'] }}</td>
+                <td class="text-capitalize">{{ $row['no_telp'] }}</td>
+                <td class="text-lowercase">{{ $row['status'] }}</td>
                 <td>
-                  <a href="/updateclient/{{ $row->id }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
-                  <a href="/rejectclient/{{ $row->id }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
+                  @if($row['status'] == 'no')
+                  <a href="/updateclient/{{ $row['user_id'] }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
+                  @else
+                  <a href="/rejectclient/{{ $row['user_id'] }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
+                  @endif
                 </td>
                 </tr>
                 @endforeach

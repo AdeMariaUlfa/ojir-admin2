@@ -40,6 +40,24 @@ class BankSampahFirebase
         return $result;
     }
 
+    public function getByUserId($id)
+    {
+        $data = $this->database->getReference('bank_sampahs')->getValue();
+       // return $data;
+        $result = [];
+        foreach ($data as $key => $value) {
+            if($value['user_id'] == $id){
+                $result['id'] = $key;
+                $result['pemilik'] = $value['pemilik'];
+                $result['tanggal_berdiri'] = $value['tanggal_berdiri'];
+                $result['alamat_banksampah'] = $value['alamat_banksampah'];
+                $result['kota_kab'] = $value['kota_kab'];
+                $result['phone'] = $value['phone'];
+                break;
+            }
+        }
+        return $result;   
+    }
     public function hasOneUser($user_id)
     {
         $data = $this->database->getReference('users')->getValue();
@@ -113,8 +131,4 @@ class BankSampahFirebase
         ]);
     }
 
-    // public function reject($user_id)
-    // {
-
-    // }
 }

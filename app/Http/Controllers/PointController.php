@@ -7,16 +7,28 @@ use App\Models\DetailPoint;
 use App\Models\BankSampah;
 use Illuminate\Http\Request;
 use Auth;
-
+use Session;
 class PointController extends Controller
 {
+     private $firebaseData;
+     private $firebaseBankSampah;
+     private $firebasePoint;
+     public function __construct()
+     {
+        //$this->middleware('authfirebase');
+        $this->firebasePoint = new \App\Models\Firebase\PointFirebase();
+        $this->firebaseBankSampah = new \App\Models\Firebase\BankSampahFirebase();
+        $this->firebaseData = new \App\Models\Firebase\FirebaseData();
+     }
     public function index()
     {
-        $id = Auth::user()->id;
-        $banksampah = BankSampah::where('user_id', $id)->first();
-        $data = Point::join('bank_sampahs','bank_sampahs.id','=','points.banksampah_id')->where(
-            'bank_sampahs.id',$banksampah->id)->select(
-            'points.*')->get();
+        $id = $this->firebaseData->auth()['id'];
+        $banksampah = $this->firebaseBankSampah->getByUserId($id);
+        // $data = Point::join('bank_sampahs','bank_sampahs.id','=','points.banksampah_id')->where(
+        //     'bank_sampahs.id',$banksampah->id)->select(
+        //     'points.*')->get();
+        $data = $this->firebasePoint->getPointByBankSampahIdUser($banksampah['id']);
+        //return $data;
         return view('banksampah.point', compact('data'));
     }
     public function addpoint()
@@ -25,31 +37,39 @@ class PointController extends Controller
     }
     public function postpoint(Request $request)
     {
-        $idBS = Auth::user()->id;
-        $banksampah = BankSampah::where('user_id', $idBS)->first();
-        
-        Point::create(['jenis_sampah'   => $request->input('jenis_sampah'),
-                       'point'          => $request->input('point'),
-                       'berat'          => $request->input('berat'),                
-                       'banksampah_id'  => $banksampah->id]);
+        //return $request;
+        $idBS = $this->firebaseData->auth()['id'];
+        //return $idBS;
+        $banksampah = $this->firebaseBankSampah->getByUserId($idBS);
+        //return $banksampah;
+        // Point::create(['jenis_sampah'   => $request->input('jenis_sampah'),
+        //                'point'          => $request->input('point'),
+        //                'berat'          => $request->input('berat'),                
+        //                'banksampah_id'  => $banksampah->id]);
+        $post = $this->firebasePoint->postpoint($request,$banksampah['id']);
+        //return $post;
         return redirect()->route('point')->with('success','data berhasil ditambahkan!');
     }
     public function viewpoint($id)
     { 
-        $data = Point::find($id);
+        //$data = Point::find($id);
         // dd($data);
+        $data = $this->firebasePoint->getPointById($id);
+        //return $data;
         return view('banksampah.view-point',compact('data'));
     }
     public function updatepoint(Request $request, $id)
     {
-        $data = Point::find($id);
-        $data->update($request->all());
+        //$data = Point::find($id);
+        //$data->update($request->all());
+        $this->firebasePoint->updatePoint($request,$id);
         return redirect()->route('point')->with('success','data berhasil diupdate!');
     }
     public function deletepoint($id)
     {
-        $data = Point::find($id);
-        $data->delete();
+        //$data = Point::find($id);
+        //$data->delete();
+        $this->firebasePoint->deletePoint($id);
         return redirect()->route('point')->with('success','data berhasil dihapus!');
     }
 
@@ -89,7 +109,7 @@ class PointController extends Controller
     public function laporan()
     {
         // tolong ditambahkan untuk penjumlahan total point dan berat, terimakasih
-        $id = Auth::user()->id;
+        $id = $this->firebaseData->auth()['id'];
         $banksampah = BankSampah::where('user_id', $id)->first();
         $data = DetailPoint::join('users','users.id','=','detail_points.user_id')->select(
             'detail_points.*','users.name')->get();
@@ -100,10 +120,10 @@ class PointController extends Controller
     {
         if($request->banksampah_id != null){
             if($request->berat != null){
-                $data =  Point::where('banksampah_id', $request->banksampah_id)->first();
-                if($data){
+                $data =  $this->firebasePoint->getPointByBankSampahIdReal($request->banksampah_id);
+                if(count($data) > 0){
                     $berat = $request->berat;
-                    $result = $data->point * $berat;
+                    $result = $data['harga'] * $berat;
                     return response()->json([
                         'status'=>'success',
                         'result'=>$result

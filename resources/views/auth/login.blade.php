@@ -40,7 +40,8 @@
                                     <p class="mb-0">Enter your email and password</p>
                                 </div>
                                 <div class="card-body bg-light">
-                                    <form role="form" action="{{ route('login') }}" method="POST" enctype="multipart/form-data">
+                                    <form role="form" action="{{ route('firebaseLogin') }}" method="POST" 
+                                          enctype="multipart/form-data">
                                         {{csrf_field()}}
                                         <label>Email</label>
                                         <div class="mb-3">

@@ -15,63 +15,82 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $firebaseMember;
+    private $firebaseData;
+    private $firebaseBankSampah;
+    private $firebasePoint;
+    public function __construct()
+    {
+        $this->firebasePoint = new \App\Models\Firebase\PointFirebase();
+        $this->firebaseBankSampah = new \App\Models\Firebase\BankSampahFirebase();
+        $this->firebaseData = new \App\Models\Firebase\FirebaseData();
+        $this->firebaseMember = new \App\Models\Firebase\MemberFirebase();
+    }
     public function indexMember(Request $request)
     {
         if($request->has('search')){
-            $data = Member::where('gender','LIKE','%' .$request->search.'%')->paginate(5);
+           // $data = Member::where('gender','LIKE','%' .$request->search.'%')->paginate(5);
+           $data = $this->firebaseMember->search($request->search,5);
         }else{
-            $data = Member::paginate(10);
+            //$data = Member::paginate(10);
+            $data = $this->firebaseMember->getAll();
         }
         
         return view('member.member', compact('data'));
     }
     public function updateMember($id)
     {
-        User::find($id)->update(['status'=>'yes']);
+        //User::find($id)->update(['status'=>'yes']);
+        $this->firebaseMember->updateOrReject($id,'yes');
         return redirect()->back();
     }
     public function rejectMember($id)
     {
-        User::find($id)->update(['status'=>'no']);
+        //User::find($id)->update(['status'=>'no']);
+        $this->firebaseMember->updateOrReject($id,'no');
         return redirect()->back();
     }
 
     public function indexClient()
     {
-        $id = Auth::user()->id;
-        $banksampah = BankSampah::where('user_id', $id)->first();
-        $data = User::join('members','members.user_id','=','users.id')->where(
-            'users.role','client')->where('banksampah_id', $banksampah->id)->select(
-            'members.*','users.*')->get();
+        $id = $this->firebaseData->auth()['id'];
+        $banksampah = $this->firebaseBankSampah->getByUserId($id);
+        // $data = User::join('members','members.user_id','=','users.id')->where(
+        //     'users.role','client')->where('banksampah_id', $banksampah->id)->select(
+        //     'members.*','users.*')->get();
+        $data = $this->firebaseMember->getByBankSampahId($banksampah['id']);
         return view('member.client', compact('data'));
     }
     public function updateClient($id)
     {
-        User::find($id)->update(['status'=>'yes']);
+        //User::find($id)->update(['status'=>'yes']);
+        $this->firebaseMember->updateOrReject($id,'yes');
         return redirect()->back();
     }
     public function rejectClient($id)
     {
-        User::find($id)->update(['status'=>'no']);
+        //User::find($id)->update(['status'=>'no']);
+        $this->firebaseMember->updateOrReject($id,'no');
         return redirect()->back();
     }
     public function indexLocalHero()
     {
-        $id = Auth::user()->id;
-        $banksampah = BankSampah::where('user_id', $id)->first();
-        $data = User::join('members','members.user_id','=','users.id')->where(
-            'users.role','localhero')->where('banksampah_id', $banksampah->id)->select(
-            'members.*','users.*')->get();
+        $id = $this->firebaseData->auth()['id'];
+        $banksampah = $this->firebaseBankSampah->getByUserId($id);
+        $data = $this->firebaseMember->getDriver();
+       // return $data;
         return view('member.localhero', compact('data'));
     }
     public function updateLocalHero($id)
     {
-        User::find($id)->update(['status'=>'yes']);
+        //User::find($id)->update(['status'=>'yes']);
+        $this->firebaseMember->updateOrReject($id,'yes');
         return redirect()->back();
     }
     public function rejectLocalHero($id)
     {
-        User::find($id)->update(['status'=>'no']);
+        //User::find($id)->update(['status'=>'no']);
+        $this->firebaseMember->updateOrReject($id,'no');
         return redirect()->back();
     }
     /**

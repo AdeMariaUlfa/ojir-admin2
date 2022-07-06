@@ -16,9 +16,14 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $firebaseMember;
+    private $firebaseData;
+    private $firebaseBankSampah;
+    private $firebasePoint;
     public function __construct()
     {
-        //$this->middleware('authfirebase');
+        $this->firebasePoint = new \App\Models\Firebase\PointFirebase();
+        $this->firebaseBankSampah = new \App\Models\Firebase\BankSampahFirebase();
+        $this->firebaseData = new \App\Models\Firebase\FirebaseData();
         $this->firebaseMember = new \App\Models\Firebase\MemberFirebase();
     }
     public function indexMember(Request $request)
@@ -48,7 +53,7 @@ class MemberController extends Controller
 
     public function indexClient()
     {
-        $id = Auth::user()->id;
+        $id = $this->firebaseData->auth()['id'];
         $banksampah = BankSampah::where('user_id', $id)->first();
         $data = User::join('members','members.user_id','=','users.id')->where(
             'users.role','client')->where('banksampah_id', $banksampah->id)->select(
@@ -69,11 +74,10 @@ class MemberController extends Controller
     }
     public function indexLocalHero()
     {
-        $id = Auth::user()->id;
-        $banksampah = BankSampah::where('user_id', $id)->first();
-        $data = User::join('members','members.user_id','=','users.id')->where(
-            'users.role','localhero')->where('banksampah_id', $banksampah->id)->select(
-            'members.*','users.*')->get();
+        $id = $this->firebaseData->auth()['id'];
+        $banksampah = $this->firebaseBankSampah->getByUserId($id);
+        $data = $this->firebaseMember->getDriver();
+       // return $data;
         return view('member.localhero', compact('data'));
     }
     public function updateLocalHero($id)

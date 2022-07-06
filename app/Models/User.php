@@ -62,6 +62,15 @@ class User extends Authenticatable
         return $this->hasOne(Member::class, 'user_id', 'id');
     }
 
+    public function isAdminSistem()
+    {
+        if($this->role == 'admin'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function isAdminBankSampah()
     {
         if($this->role == 'banksampah'){
@@ -97,6 +106,7 @@ class User extends Authenticatable
     public function hasRole($role)
     {
        switch($role){
+           case 'admin' : return \Auth::user()->isAdminSistem();
            case 'banksampah' : return \Auth::user()->isAdminBankSampah();
            case 'keuangan': return \Auth::user()->isAdminKeuangan();
            case 'localhero' : return \Auth::user()->isLocalHero();

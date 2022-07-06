@@ -44,11 +44,12 @@ Route::get('/rejectbanksampah/{id}', [BankSampahController::class, 'reject'])->n
 Route::get('/member', [MemberController::class, 'indexMember'])->name('member');
 Route::get('/updatemember/{id}', [MemberController::class, 'updateMember'])->name('updatemember');
 Route::get('/rejectmember/{id}', [MemberController::class, 'rejectMember'])->name('updatemember');
+
 });
 
 
 // Route login dengan role admin
-Route::middleware(['auth', 'role:banksampah,keuangan'])->group(function () {
+Route::middleware(['auth', 'role:banksampah,keuangan,admin'])->group(function () {
 
 Route::get('/client/{id?}', [MemberController::class, 'indexClient'])->name('client');
 Route::get('/updateclient/{id}', [MemberController::class, 'updateClient'])->name('updateclient');
@@ -65,27 +66,17 @@ Route::get('/viewpoint/{id}', [PointController::class, 'viewpoint'])->name('view
 Route::post('/updatepoint/{id}', [PointController::class, 'updatepoint'])->name('updatepoint');
 Route::get('/deletepoint/{id}', [PointController::class, 'deletepoint'])->name('deletepoint');
 
-Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');
 });
 
 // Route login dengan role client
-Route::middleware(['auth', 'role:client,localhero'])->group(function () {
+Route::middleware(['auth', 'role:client,localhero,admin'])->group(function () {
 Route::get('/pointMember', [PointController::class, 'indexMember'])->name('pointMember');
 });
-
-// Route login dengan role admin
-Route::middleware(['auth', 'role:localhero'])->group(function () {
-Route::get('/addpointMember', [PointController::class, 'addpointMember'])->name('addpointMember');
-Route::post('/postpointMember', [PointController::class, 'postpointMember'])->name('postpoint');
-});
-
 
 
 Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');
 
-// nb
-// minta tolong ditambahkan middleware untuk akses role client->hanya bisa mengakses menu view pointMember
-// dan role->localhero bisa mengakses addpointMember, terimakasih
+
 
 //apimobile
 Route::post('/api/get_point/member', [PointController::class, 'getGurrentPointBankSampa']);

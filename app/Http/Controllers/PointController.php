@@ -60,31 +60,31 @@ class PointController extends Controller
             'detail_points.*','users.name')->get();
         return view('pointdetail.point-detail', compact('data'));
     }
-    public function addpointMember()
-    {
-        $bs = BankSampah::join('users','users.id','=','bank_sampahs.user_id')->select(
-        'bank_sampahs.id','users.name')->get();
-        $client = User::where('role','client')->get();
-        return view('pointdetail.tambah-point', compact('bs','client'));
-    }
-    public function postpointMember(Request $request)
-    {
-        $bs = Point::where('banksampah_id', $request->banksampah_id)->where(
-            'berat','<=',$request->berat)->first();
-            if($bs == null){
-                DetailPoint::create([
-                'user_id'        => $request->input('user_id'),
-                'point'          => 0,
-                'jumlah'         => $request->input('berat')]);
-            }
-            else{
-                DetailPoint::create(['user_id'        => $request->input('user_id'),
-                       'point'          => (int) $bs->point,
-                       'jumlah'          => $request->input('berat')]);
-            }
+    // public function addpointMember()
+    // {
+    //     $bs = BankSampah::join('users','users.id','=','bank_sampahs.user_id')->select(
+    //     'bank_sampahs.id','users.name')->get();
+    //     $client = User::where('role','client')->get();
+    //     return view('pointdetail.tambah-point', compact('bs','client'));
+    // }
+    // public function postpointMember(Request $request)
+    // {
+    //     $bs = Point::where('banksampah_id', $request->banksampah_id)->where(
+    //         'berat','<=',$request->berat)->first();
+    //         if($bs == null){
+    //             DetailPoint::create([
+    //             'user_id'        => $request->input('user_id'),
+    //             'point'          => 0,
+    //             'jumlah'         => $request->input('berat')]);
+    //         }
+    //         else{
+    //             DetailPoint::create(['user_id'        => $request->input('user_id'),
+    //                    'point'          => (int) $bs->point,
+    //                    'jumlah'          => $request->input('berat')]);
+    //         }
         
-        return redirect()->route('pointMember')->with('success','data berhasil ditambahkan!');
-    }
+    //     return redirect()->route('pointMember')->with('success','data berhasil ditambahkan!');
+    // }
     
     public function laporan()
     {

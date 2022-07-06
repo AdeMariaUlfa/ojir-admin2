@@ -27,11 +27,12 @@ class PointFirebase
      public function getPointByBankSampahIdReal($id)
     {
         $data = $this->database->getReference('points')->getValue();
-        $result = [];
+        $result = null;
         foreach ($data as $key => $value) {
             //$user = $this->hasOneUser($value['banksampah_id']);
             if($value['banksampah_id'] == $id){
-                array_push($result, $value);
+                $result = $value;
+                break;
             }
         }
         return $result;
@@ -98,5 +99,12 @@ class PointFirebase
             'created_at'=>$time
         ]);
         return $id;
+    }
+
+    public function deletePoint($id)
+    {
+         $this->database
+        ->getReference('points/' . $id)
+        ->remove();
     }
 }

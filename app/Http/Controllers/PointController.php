@@ -67,8 +67,9 @@ class PointController extends Controller
     }
     public function deletepoint($id)
     {
-        $data = Point::find($id);
-        $data->delete();
+        //$data = Point::find($id);
+        //$data->delete();
+        $this->firebasePoint->deletePoint($id);
         return redirect()->route('point')->with('success','data berhasil dihapus!');
     }
 
@@ -108,7 +109,7 @@ class PointController extends Controller
     public function laporan()
     {
         // tolong ditambahkan untuk penjumlahan total point dan berat, terimakasih
-        $id = Auth::user()->id;
+        $id = $this->firebaseData->auth()['id'];
         $banksampah = BankSampah::where('user_id', $id)->first();
         $data = DetailPoint::join('users','users.id','=','detail_points.user_id')->select(
             'detail_points.*','users.name')->get();

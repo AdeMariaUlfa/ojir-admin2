@@ -27,13 +27,11 @@ class PointFirebase
      public function getPointByBankSampahIdReal($id)
     {
         $data = $this->database->getReference('points')->getValue();
+        $sort = array_column($data, 'created_at');
+        $fix = array_multisort($sort, SORT_DESC, $data);
         $result = null;
-        foreach ($data as $key => $value) {
-            //$user = $this->hasOneUser($value['banksampah_id']);
-            if($value['banksampah_id'] == $id){
-                $result = $value;
-                break;
-            }
+        if(isset($data[0])){
+            $result = $data[0];
         }
         return $result;
     }

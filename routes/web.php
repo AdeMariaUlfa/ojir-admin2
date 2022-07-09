@@ -50,12 +50,12 @@ Route::get('/rejectmember/{id}', [MemberController::class, 'rejectMember'])->nam
 
 
 // Route login dengan role admin
-<<<<<<< HEAD
-Route::middleware(['auth', 'role:banksampah,keuangan,admin'])->group(function () {
-=======
+
+//Route::middleware(['auth', 'role:banksampah,keuangan,admin'])->group(function () {
+
 // Route::middleware(['auth', 'role:banksampah,keuangan'])->group(function () {
 Route::group(['middleware' => ['routefirebase:banksampah,keuangan']], function () {
->>>>>>> 27af72049d1b8bcbef26738263e39aed1a0512a8
+
 
 	Route::get('/client/{id?}', [MemberController::class, 'indexClient'])->name('client');
 	Route::get('/updateclient/{id}', [MemberController::class, 'updateClient'])->name('updateclient');
@@ -76,12 +76,11 @@ Route::group(['middleware' => ['routefirebase:banksampah,keuangan']], function (
 });
 
 // Route login dengan role client
-<<<<<<< HEAD
-Route::middleware(['auth', 'role:client,localhero,admin'])->group(function () {
-Route::get('/pointMember', [PointController::class, 'indexMember'])->name('pointMember');
-});
 
-=======
+// Route::middleware(['auth', 'role:client,localhero,admin'])->group(function () {
+// Route::get('/pointMember', [PointController::class, 'indexMember'])->name('pointMember');
+// });
+
 Route::group(['middleware' => ['routefirebase:client,localhero']], function () {
 	Route::get('/pointMember', [PointController::class, 'indexMember'])->name('pointMember');
 });
@@ -92,8 +91,6 @@ Route::group(['middleware' => ['routefirebase:localhero']], function () {
 	Route::post('/postpointMember', [PointController::class, 'postpointMember'])->name('postpoint');
 });
 
-
->>>>>>> 27af72049d1b8bcbef26738263e39aed1a0512a8
 
 Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');
 

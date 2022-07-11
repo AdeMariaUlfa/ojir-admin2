@@ -116,7 +116,7 @@ class RegisterController extends Controller
         return $user;
     }
 
-    protected function createMember(array $data)
+    protected function createMember(Request $request)
     {
 
         // $user = User::create([
@@ -127,7 +127,7 @@ class RegisterController extends Controller
         //     'status' => 'yes',
         // ]);
 
-        $path = request()->file('upload_ktp') ?? null;
+        $path = $request->file('upload_ktp') ?? null;
         if (request()->hasFile('upload_ktp'))
         {
             $file = request()->file('upload_ktp');
@@ -145,10 +145,19 @@ class RegisterController extends Controller
         //     'no_telp' => $data['no_telp'],
         //     'upload_ktp' => $path
         // ]);
-
+        $data = [];
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['password'] = $request->password;
+        $data['role'] = $request->role;
+        $data['banksampah'] = $request->banksampah;
+        $data['no_ktp'] = $request->no_ktp;
+        $data['gender'] = $request->gender;
+        $data['alamat'] = $request->alamat;
+        $data['no_telp'] = $request->no_telp;
+        $data['path'] = $path;
         //firebase
         $user_id = $this->firebaseUser->createMember($data);
-        $data['path'] = $path;
         $this->firebaseUser->createBankSampahMember($data,$user_id);
 
         return $user;

@@ -41,21 +41,15 @@ class PointFirebase
         return $result;
     }
 
-     public function getPointByBankSampahIdReal($id,$berat)
+     public function getPointByBankSampahIdReal($id,$jenis_sampah)
     {
         $data = $this->database->getReference('points')->getValue();
         //$sort = array_column($data, 'created_at');
-        $result = [];
-        $no = 0;
+        $result = null;
         foreach ($data as $key => $value) {
-           if($id == $value['banksampah_id']){
-               $result[$no]['id'] = $key;
-               $result[$no]['banksampah_id'] = $value['banksampah_id'];
-               $result[$no]['jenis_sampah'] = $value['jenis_sampah'];
-               $result[$no]['harga'] = $value['harga'];
-               $result[$no]['berat'] = $value['berat'];
-               $result[$no]['point'] = $value['harga'] * $berat;
-               $no++;
+           if($id == $value['banksampah_id'] && $jenis_sampah == $value['jenis_sampah']){
+              $result = $value;
+              break;
            }
         }
         return $result;

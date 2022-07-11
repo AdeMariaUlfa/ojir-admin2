@@ -119,11 +119,11 @@ class PointController extends Controller
     public function getGurrentPointBankSampa(Request $request)
     {
         if($request->banksampah_id != null){
-            if($request->berat != null){
-                $data =  $this->firebasePoint->getPointByBankSampahIdReal($request->banksampah_id,$request->berat);
-                if(count($data) > 0){
-                   // $berat = $request->berat;
-                    //$result = $data['harga'] * $berat;
+            if($request->berat != null && $request->jenis_sampah != NULL){
+                $data =  $this->firebasePoint->getPointByBankSampahIdReal($request->banksampah_id,$request->jenis_sampah);
+                if($data != null){
+                    $berat = $request->berat;
+                    $result = $data['harga'] * $berat;
                     return response()->json([
                         'status'=>'success',
                         'result'=>$data
@@ -137,7 +137,7 @@ class PointController extends Controller
             }else{
                 return response()->json([
                         'status'=>'error',
-                        'result'=>'berat is required!'
+                        'result'=>'berat & jenis_sampah is required!'
                     ]);
             }
         }else{

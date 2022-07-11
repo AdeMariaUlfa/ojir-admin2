@@ -28,6 +28,7 @@ class UserFirebase
                     $user = $this->hasOneUser($key);
                     if($user != null){
                         $result['pemilik'] = $user['pemilik'];
+                        $result['banksampah_id'] = $user['id'];
                         $result['tanggal_berdiri'] = $user['tanggal_berdiri'];
                         $result['alamat_banksampah'] = $user['alamat_banksampah'];
                         $result['kota_kab'] = $user['kota_kab'];

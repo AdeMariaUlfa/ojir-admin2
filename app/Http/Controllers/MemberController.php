@@ -32,8 +32,14 @@ class MemberController extends Controller
            // $data = Member::where('gender','LIKE','%' .$request->search.'%')->paginate(5);
            $data = $this->firebaseMember->search($request->search,5);
         }else{
+          //  return $this->firebaseData->auth()['banksampah_id'];
             //$data = Member::paginate(10);
-            $data = $this->firebaseMember->getAll();
+            if( $this->firebaseData->auth()['role'] == 'admin'){
+               $data = $this->firebaseMember->getAll();
+            }else{
+                $data = $this->firebaseMember->getAllByBankSampa($this->firebaseData->auth()['banksampah_id']);
+            }
+            //$data = $this->firebaseMember->getAll();
         }
         
         return view('member.member', compact('data'));

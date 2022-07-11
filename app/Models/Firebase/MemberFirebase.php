@@ -44,6 +44,41 @@ class MemberFirebase
         return $result;
     }
 
+    public function getAllByBankSampa($id)
+    {
+        $data = $this->database->getReference('members')->getValue();
+        $result = [];
+        $no = 0;
+        foreach ($data as $key => $value) {
+            if($value['banksampah_id'] == $id){
+                $user = $this->hasOneUser($value['user_id']);
+                $name = '-';
+                $email = '-';
+                $role = '-';
+                $status = '-';
+                if($user['status'] == true){
+                    $name = $user['data']['name'];
+                    $email = $user['data']['email'];
+                    $status = $user['data']['status'];
+                    $role = $user['data']['role'];
+                }
+                $result[$no]['name'] = $name;
+                $result[$no]['email'] = $email;
+                $result[$no]['status'] = $status;
+                $result[$no]['role'] = $role;
+                $result[$no]['user_id'] = $value['user_id'];
+                $result[$no]['gender'] = $value['gender'];
+                $result[$no]['no_ktp'] = $value['no_ktp'];
+                $result[$no]['alamat'] = $value['alamat'];
+                $result[$no]['no_telp'] = $value['no_telp'];
+                $result[$no]['upload_ktp'] = $value['upload_ktp'];
+                $result[$no]['banksampah_id'] = $value['banksampah_id'];
+                $no++;
+            }
+        }
+        return $result;
+    }
+
     public function hasOneUser($user_id)
     {
         $data = $this->database->getReference('users')->getValue();

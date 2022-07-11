@@ -147,4 +147,13 @@ class PointController extends Controller
                     ]);
         }
     }
+
+    public function getAllPoints()
+    {
+         $data =  $this->firebasePoint->getAllPoints();
+         return response()->json([
+            'status'=>'success',
+            'result'=>$data
+        ]);
+    }
 }

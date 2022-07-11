@@ -11,6 +11,23 @@ class PointFirebase
         $this->database = \App\Services\FirebaseService::connect();
     }
 
+    public function getAllPoints()
+    {
+        $data = $this->database->getReference('points')->getValue();
+        $result = [];
+        $no = 0;
+        foreach ($data as $key => $value) {
+           $result[$no]['id'] = $key;
+          // $result[$no]['jenis_sampah'] = $value['jenis_sampah'];
+           $result[$no]['harga'] = $value['harga'];
+           //$result[$no]['berat'] = $value['berat'];
+          // $result[$no]['banksampah_id'] = $value['banksampah_id'];
+          // $result[$no]['created_at'] = $value['created_at'];
+            $no++;
+        }
+        return $result;
+    }
+
     public function getPointByBankSampahIdUser($id)
     {
         $data = $this->database->getReference('points')->getValue();

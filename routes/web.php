@@ -98,5 +98,5 @@ Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');
 
 //apimobile
 Route::post('/api/get_point/member', [PointController::class, 'getGurrentPointBankSampa']);
-
+Route::get('/api/get_harga/all', [PointController::class, 'getAllPoints']);
 Route::get('/manualbook', [HomeController::class, 'manualbook'])->name('manualbook');

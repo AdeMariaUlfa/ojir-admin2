@@ -32,7 +32,7 @@ Route::namespace('b')->group(function() {});
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/register/member', [RegisterController::class, 'showRegistrationFormMember'])->name('register.member');
-Route::post('/register/member', [RegisterController::class, 'registerMember'])->name('registerMember');
+Route::post('/register/member', [RegisterController::class, 'createMember'])->name('registerMember');
 Route::get('/register/memberGetBankSampah', [RegisterController::class, 'showBankSampah'])->name('showBankSampah');
 
 

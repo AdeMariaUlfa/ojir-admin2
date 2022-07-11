@@ -144,10 +144,10 @@ class MemberFirebase
             // $result[$no]['role'] = $role;
             //$result[$no]['user_id'] = $value['email'];
             $result[$no]['id'] = $key;
-            $result[$no]['email'] = $value['email'];
-            $result[$no]['name'] = $value['name'];
-            $result[$no]['phone'] = $value['phone'];
-            $result[$no]['photo'] = $value['photo'];
+            $result[$no]['email'] = $value['email'] ?? '-';
+            $result[$no]['name'] = $value['name'] ?? '-';
+            $result[$no]['phone'] = $value['phone'] ?? '-';
+            $result[$no]['photo'] = $value['photo'] ?? '-';
            // $result[$no]['upload_ktp'] = $value['upload_ktp'];
 
             $no++;

@@ -47,14 +47,18 @@ class LoginController extends Controller
         //return $dataUser;
         if($dataUser == null)
         {
-            return redirect()->back()->with('email tidak ditemukan!');
+            return redirect()->back()->with('success','email tidak ditemukan!');
         }else{
             if(!Hash::check($request->password, $dataUser['password'])){
-                return redirect()->back()->with('password salah!');
+                return redirect()->back()->with('success','password salah!');
             }else{
-                //return $dataUser;
-                Session::put('dataUser',$dataUser);
-                return redirect('home');
+                if($dataUser['status'] == 'yes'){
+                    //return $dataUser;
+                    Session::put('dataUser',$dataUser);
+                    return redirect('home');
+                }else{
+                    return redirect()->back()->with('success','Akun anda belum diverifikasi!');
+                }
             }
         }
     }

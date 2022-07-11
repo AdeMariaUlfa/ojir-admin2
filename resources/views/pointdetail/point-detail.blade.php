@@ -8,7 +8,7 @@
             <li class="breadcrumb-item text-sm text-light active" aria-current="page">Menu</li>
           </ol>
           <h6 class="font-weight-bolder text-light mb-0">Point Member</h6><br>
-</div>
+          </div>
           <div class="container">
           <a href="/addpointMember" class="btn btn-sm btn-success">TAMBAH +</a><br>
         <div class="row g-3 align-items-center ">

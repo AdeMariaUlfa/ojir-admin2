@@ -113,7 +113,7 @@ class RegisterController extends Controller
         $user_id = $this->firebaseUser->createUser($data);
         $this->firebaseUser->createBankSampahUser($data,$user_id);
 
-        return $user;
+        return redirect('login');
     }
 
     protected function createMember(Request $request)

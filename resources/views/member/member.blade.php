@@ -57,9 +57,9 @@
                 <td class="text-lowercase">{{ $row['status'] }}</td>
                 <td>
                   @if($row['status'] == 'no')
-                  <a href="/updatebanksampah/{{ $row['user_id'] }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
+                  <a href="/updatemember/{{ $row['user_id'] }}" style="width:100px; margin: 3px;" class="btn btn-success btn-sm">VERIFIKASI</a>
                   @else
-                  <a href="/rejectbanksampah/{{ $row['user_id'] }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
+                  <a href="/rejectmember/{{ $row['user_id'] }}" style="width:100px; margin: 3px;" class="btn btn-danger btn-sm">REJECT</a>
                   @endif
                 </tr>
                 @endforeach

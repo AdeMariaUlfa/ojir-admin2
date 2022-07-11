@@ -48,6 +48,12 @@ Route::get('/rejectmember/{id}', [MemberController::class, 'rejectMember'])->nam
 
 });
 
+Route::group(['middleware' => ['routefirebase:admin,banksampah']], function () {
+Route::get('/member', [MemberController::class, 'indexMember'])->name('member');
+Route::get('/updatemember/{id}', [MemberController::class, 'updateMember'])->name('updatemember');
+Route::get('/rejectmember/{id}', [MemberController::class, 'rejectMember'])->name('updatemember');
+});
+
 
 // Route login dengan role admin
 

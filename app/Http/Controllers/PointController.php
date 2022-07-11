@@ -126,7 +126,7 @@ class PointController extends Controller
                     $result = $data['harga'] * $berat;
                     return response()->json([
                         'status'=>'success',
-                        'result'=>$data
+                        'result'=>$result
                     ]);
                 }else{
                     return response()->json([

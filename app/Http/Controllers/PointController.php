@@ -122,11 +122,11 @@ class PointController extends Controller
             if($request->berat != null){
                 $data =  $this->firebasePoint->getPointByBankSampahIdReal($request->banksampah_id,$request->berat);
                 if(count($data) > 0){
-                    $berat = $request->berat;
+                   // $berat = $request->berat;
                     //$result = $data['harga'] * $berat;
                     return response()->json([
                         'status'=>'success',
-                        'result'=>$result
+                        'result'=>$data
                     ]);
                 }else{
                     return response()->json([

@@ -26,6 +26,7 @@ class BankSampahFirebase
                 $email = $user['data']['email'];
                 $status = $user['data']['status'];
             }
+            $result[$no]['id'] = $key;
             $result[$no]['name'] = $name;
             $result[$no]['email'] = $email;
             $result[$no]['status'] = $status;
@@ -78,8 +79,8 @@ class BankSampahFirebase
         $data = $this->database->getReference('bank_sampahs')->getValue();
         $result = null;
         foreach ($data as $key => $value) {
-            if($value['id'] == $filter){
-                $result = $data[$value['id']];
+            if($filter == $key){
+                $result = $data[$key];
                 break;
             }
         }

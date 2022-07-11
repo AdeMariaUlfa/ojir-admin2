@@ -125,7 +125,7 @@ button:hover {
                       <select class="form-select" name="banksampah" id="banksampah" aria-label="Default select example"> 
                           <option selected>Pilih Bank Sampah</option>
                           @foreach ($data as $index => $row)
-                            <option value="{{ $row->bank_sampah->id }}">{{ $row->name }}</option>
+                            <option value="{{ $row['id']}}">{{ $row['name'] }}</option>
                           @endforeach
                       </select> 
                   </div>

@@ -92,22 +92,22 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role' => 'banksampah',
-            'status' => 'no',
-        ]);
+        // $user = User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        //     'role' => 'banksampah',
+        //     'status' => 'no',
+        // ]);
 
-        BankSampah::create([
-            'user_id' => $user->id,
-            'pemilik' => $data['pemilik'],
-            'tanggal_berdiri' => $data['tanggal_berdiri'],
-            'alamat_banksampah' => $data['alamat_banksampah'],
-            'kota_kab' => $data['kota_kab'],
-            'phone' => $data['phone'],
-        ]);
+        // BankSampah::create([
+        //     'user_id' => $user->id,
+        //     'pemilik' => $data['pemilik'],
+        //     'tanggal_berdiri' => $data['tanggal_berdiri'],
+        //     'alamat_banksampah' => $data['alamat_banksampah'],
+        //     'kota_kab' => $data['kota_kab'],
+        //     'phone' => $data['phone'],
+        // ]);
 
         //firebase 
         $user_id = $this->firebaseUser->createUser($data);
@@ -119,13 +119,13 @@ class RegisterController extends Controller
     protected function createMember(array $data)
     {
 
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role' => $data['role'],
-            'status' => 'yes',
-        ]);
+        // $user = User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        //     'role' => $data['role'],
+        //     'status' => 'yes',
+        // ]);
 
         $path = request()->file('upload_ktp') ?? null;
         if (request()->hasFile('upload_ktp'))
@@ -136,15 +136,15 @@ class RegisterController extends Controller
             $fileName = $name . '.' . $extension;
             $path = $file->move('foto_ktp_member/', $file->getClientOriginalName());
         }
-        Member::create([
-            'banksampah_id' => $data['banksampah'],
-            'user_id' => $user->id,
-            'no_ktp' => $data['no_ktp'],
-            'gender' => $data['gender'],
-            'alamat' => $data['alamat'],
-            'no_telp' => $data['no_telp'],
-            'upload_ktp' => $path
-        ]);
+        // Member::create([
+        //     'banksampah_id' => $data['banksampah'],
+        //     'user_id' => $user->id,
+        //     'no_ktp' => $data['no_ktp'],
+        //     'gender' => $data['gender'],
+        //     'alamat' => $data['alamat'],
+        //     'no_telp' => $data['no_telp'],
+        //     'upload_ktp' => $path
+        // ]);
 
         //firebase
         $user_id = $this->firebaseUser->createMember($data);
@@ -156,11 +156,17 @@ class RegisterController extends Controller
 
     public function showBankSampah(Request $request)
     {
-        $data = BankSampah::where('id', $request->filter)->first();
+        //$data = BankSampah::where('id', $request->filter)->first();
 
         //firbase => fyi id yg ada di database tidak sama dengan di firebase jadi mungkin body request filter get id dulu dari firebae
         $dataFirebase = $this->firebaseBankSampah->showBankSampah($request->filter);
         //kalau id as body request filter berasal dari firebase bisa di retuen dataFirebase
-        return $data;
+        return $dataFirebase;
+    }
+
+    public function showRegistrationFormMember()
+    {
+        $data = $this->firebaseBankSampah->getAll();
+        return view('auth.register_member',compact('data'));
     }
 }

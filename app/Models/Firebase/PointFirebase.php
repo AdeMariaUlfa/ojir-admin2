@@ -44,7 +44,7 @@ class PointFirebase
      public function getPointByBankSampahIdReal($id,$berat)
     {
         $data = $this->database->getReference('points')->getValue();
-        $sort = array_column($data, 'created_at');
+        //$sort = array_column($data, 'created_at');
         $result = [];
         $no = 0;
         foreach ($data as $key => $value) {

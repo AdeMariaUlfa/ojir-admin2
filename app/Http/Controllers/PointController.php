@@ -120,7 +120,7 @@ class PointController extends Controller
     {
         if($request->banksampah_id != null){
             if($request->berat != null){
-                $data =  $this->firebasePoint->getPointByBankSampahIdReal($request->banksampah_id);
+                $data =  $this->firebasePoint->getPointByBankSampahIdReal($request->banksampah_id,$request->berat);
                 if($data != null){
                     $berat = $request->berat;
                     $result = $data['harga'] * $berat;

@@ -46,7 +46,7 @@
        
                 <th scope="row">{{ $data['id'] }}</th>
                 <td>{{ $data['name'] }}</td>
-                 <td>{{ $data['phone'] }}</td>
+                <td>{{ $data['phone'] }}</td>
                 <td>{{ $data['point'] }}</td>
                <!--  <td> kg</td> -->
               

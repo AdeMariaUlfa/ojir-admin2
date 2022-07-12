@@ -113,10 +113,12 @@ class PointController extends Controller
     public function laporan()
     {
         // tolong ditambahkan untuk penjumlahan total point dan berat, terimakasih
-        $id = $this->firebaseData->auth()['id'];
-        $banksampah = BankSampah::where('user_id', $id)->first();
-        $data = DetailPoint::join('users','users.id','=','detail_points.user_id')->select(
-            'detail_points.*','users.name')->get();
+        $id = $this->firebaseData->auth()['banksampah_id'];
+        // $banksampah = BankSampah::where('user_id', $id)->first();
+        // $data = DetailPoint::join('users','users.id','=','detail_points.user_id')->select(
+        //     'detail_points.*','users.name')->get();
+        $data = $this->firebasePoint->getAllPointMemberAll($id);
+        //return $data;
         return view('banksampah.laporan', compact('data'));
     }
 

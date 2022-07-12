@@ -32,30 +32,31 @@
                     <tr>
                       <th style="width: 10px">ID</th>
                       <th>USER</th>
+                      <th>PHONE</th>
+                      <th>ROLE</th>
                       <th>POINT</th>
-                      <th>BERAT</th>
-                      <th>DIBUAT</th>
                     </tr>
                     
                   </thead>
                   <tbody>
                   @php
                 $no = 1;
+                $total = 0;
                 @endphp
                 @foreach ($data as $index => $row)
-                <th scope="row">{{ $row->id }}</th>
-                <td>{{ $row->name }}</td>
-                <td>{{ $row->point }}</td>
-                <td>{{ $row->jumlah }} kg</td>
-                <td>{{ $row->created_at->format('D M Y') }}</td>
-                
-                <tr>{{ $row->total_point }}</tr>
-                <tr>{{ $row->total_berat }}</tr>
+                <th scope="row">{{ $row['id'] }}</th>
+                <td>{{ $row['name'] }}</td>
+                <td>{{ $row['phone'] }}</td>
+                <td>{{ $row['role'] }}</td>
+                <td>{{ $row['point'] }}</td>
+                @php
+                  $total += $row['point'];
+                @endphp
                 @endforeach
                 <tr>
-                        <th>TOTAL</th>
-                        <th></th>
-                        <th></th>
+                        <th colspan="4">TOTAL</th>
+                        <th>{{$total}}</th>
+                        
                     </tr>
                   </tbody>
                 </table>

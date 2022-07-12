@@ -49,6 +49,40 @@ class PointFirebase
         return $result;
     }
 
+    public function getAllPointMemberAll($banksampah_id)
+    {
+        $data = $this->database->getReference('users')->getValue();
+        $result = [];
+        $no = 0;
+        foreach ($data as $key => $value) {
+            $bank = $this->hasOneUserMember($key);
+            if($bank != null){
+                if($bank['banksampah_id'] == $banksampah_id){
+                    $self = $this->getAllPointMemberSelf($value['email']);
+                    $result[$no]['id'] = $key;
+                    $result[$no]['role'] = $value['role'];
+                    $result[$no]['name'] = $self['name'];
+                    $result[$no]['phone'] = $self['phone'];
+                    $result[$no]['point'] = $self['point'];
+                    $no++;
+                }
+            }
+        }
+        return $result;
+    }
+
+    public function hasOneUserMember($user_id)
+    {
+        $data = $this->database->getReference('members')->getValue();
+        $arr = null;
+        foreach ($data as $key => $value) {
+            if($key == $user_id){
+                $arr = $value;
+            }
+        }
+         return $arr;
+    }
+
     public function getPointByBankSampahIdUser($id)
     {
         $data = $this->database->getReference('points')->getValue();

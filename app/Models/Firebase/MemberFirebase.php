@@ -156,36 +156,22 @@ class MemberFirebase
         ]);
     }
 
-    public function getDriver()
+    public function getDriver($id)
     {
         $data = $this->database->getReference('drivers')->getValue();
         $result = [];
         $no = 0;
         foreach ($data as $key => $value) {
-           // $user = $this->hasOneUser($value['user_id']);
-            // $name = '-';
-            // $email = '-';
-            // $role = '-';
-            // $status = '-';
-            // if($user['status'] == true){
-            //     $name = $user['data']['name'];
-            //     $email = $user['data']['email'];
-            //     $status = $user['data']['status'];
-            //     $role = $user['data']['role'];
-            // }
-            // $result[$no]['name'] = $name;
-            // $result[$no]['email'] = $email;
-            // $result[$no]['status'] = $status;
-            // $result[$no]['role'] = $role;
-            //$result[$no]['user_id'] = $value['email'];
-            $result[$no]['id'] = $key;
-            $result[$no]['email'] = $value['email'] ?? '-';
-            $result[$no]['name'] = $value['name'] ?? '-';
-            $result[$no]['phone'] = $value['phone'] ?? '-';
-            $result[$no]['photo'] = $value['photo'] ?? '-';
-           // $result[$no]['upload_ktp'] = $value['upload_ktp'];
-
-            $no++;
+            if(isset($value['bank_sampah'])){
+                if($value['bank_sampah'] == $id){
+                    $result[$no]['id'] = $key;
+                    $result[$no]['email'] = $value['email'] ?? '-';
+                    $result[$no]['name'] = $value['name'] ?? '-';
+                    $result[$no]['phone'] = $value['phone'] ?? '-';
+                    $result[$no]['photo'] = $value['photo'] ?? '-';
+                    $no++;
+                }
+            }
         }
         return $result;
     }

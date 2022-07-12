@@ -83,7 +83,7 @@ class MemberController extends Controller
     {
         $id = $this->firebaseData->auth()['id'];
         $banksampah = $this->firebaseBankSampah->getByUserId($id);
-        $data = $this->firebaseMember->getDriver();
+        $data = $this->firebaseMember->getDriver($this->firebaseData->auth()['banksampah_id']);
        // return $data;
         return view('member.localhero', compact('data'));
     }

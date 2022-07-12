@@ -76,10 +76,14 @@ class PointController extends Controller
 
     public function indexMember()
     {
-        $data = DetailPoint::join('users','users.id','=','detail_points.user_id')->select(
-            'detail_points.*','users.name')->get();
+        // $data = DetailPoint::join('users','users.id','=','detail_points.user_id')->select(
+        //     'detail_points.*','users.name')->get();
+        $data = $this->firebasePoint->getAllPointMemberSelf($this->firebaseData->auth()['email']);
+        $data['id'] = $this->firebaseData->auth()['id'];
+       // return $data;
         return view('pointdetail.point-detail', compact('data'));
     }
+
     // public function addpointMember()
     // {
     //     $bs = BankSampah::join('users','users.id','=','bank_sampahs.user_id')->select(

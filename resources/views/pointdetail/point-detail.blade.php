@@ -10,12 +10,12 @@
           <h6 class="font-weight-bolder text-light mb-0">Point Member</h6><br>
           </div>
           <div class="container">
-          <a href="/addpointMember" class="btn btn-sm btn-success">TAMBAH +</a><br>
+         <!--  <a href="/addpointMember" class="btn btn-sm btn-success">TAMBAH +</a><br> -->
         <div class="row g-3 align-items-center ">
           <div class="col-auto">
-            <form action="{{ route('localhero') }}" method="GET">
+       <!--      <form action="{{ route('localhero') }}" method="GET">
               <input type="search" name="search" id="inputPassword5" class="form-control" placeholder="cari berdasarkan nama" aria-describedby="passwordHelpBlock">
-            </form>
+            </form> -->
           </div>
         </div>
           @if($message = Session::get('success'))
@@ -33,23 +33,25 @@
                     <tr>
                       <th style="width: 10px">ID</th>
                       <th>USER</th>
+                      <th>PHONE</th>
                       <th>POINT</th>
-                      <th>BERAT</th>
-                      <th>DIBUAT</th>
+                      <!-- <th>BERAT</th> -->
+                     
                     </tr>
                   </thead>
                   <tbody>
                   @php
                 $no = 1;
                 @endphp
-                @foreach ($data as $index => $row)
-                <th scope="row">{{ $row->id }}</th>
-                <td>{{ $row->name }}</td>
-                <td>{{ $row->point }}</td>
-                <td>{{ $row->jumlah }} kg</td>
-                <td>{{ $row->created_at->format('D M Y') }}</td>
+       
+                <th scope="row">{{ $data['id'] }}</th>
+                <td>{{ $data['name'] }}</td>
+                 <td>{{ $data['phone'] }}</td>
+                <td>{{ $data['point'] }}</td>
+               <!--  <td> kg</td> -->
+              
                 </tr>
-                @endforeach
+            
                   </tbody>
                 </table>
              

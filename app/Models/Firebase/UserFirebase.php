@@ -17,7 +17,7 @@ class UserFirebase
         //return $data;
         $result = [];
         foreach ($data as $key => $value) {
-            if($value['email'] == $email){
+            if($value['email'] == $email && $value['password']){
                 $result['id'] = $key;
                 $result['email'] = $value['email'];
                 $result['name'] = $value['name'];
@@ -34,6 +34,11 @@ class UserFirebase
                         $result['kota_kab'] = $user['kota_kab'];
                         $result['phone'] = $user['phone'];
                     }
+                }elseif ($value['role'] == 'client' || $value['role'] == 'localhero' || $value['role'] == 'keuangan') {
+                    $user = $this->hasOneUserMember($key);
+                    if($user != null){
+                        $result['banksampah_id'] = $user['banksampah_id'];
+                    }
                 }
                 break;
             }
@@ -44,6 +49,18 @@ class UserFirebase
     public function hasOneUser($user_id)
     {
         $data = $this->database->getReference('bank_sampahs')->getValue();
+        $arr = null;
+        foreach ($data as $key => $value) {
+            if($value['user_id'] == $user_id){
+                $arr = $value;
+            }
+        }
+         return $arr;
+    }
+
+    public function hasOneUserMember($user_id)
+    {
+        $data = $this->database->getReference('members')->getValue();
         $arr = null;
         foreach ($data as $key => $value) {
             if($value['user_id'] == $user_id){

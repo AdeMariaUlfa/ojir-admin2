@@ -98,7 +98,7 @@ Route::group(['middleware' => ['routefirebase:localhero']], function () {
 });
 
 
-Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');
+//Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');
 
 
 

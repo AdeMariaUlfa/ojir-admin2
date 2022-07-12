@@ -18,13 +18,34 @@ class PointFirebase
         $no = 0;
         foreach ($data as $key => $value) {
            $result[$no]['id'] = $key;
-          // $result[$no]['jenis_sampah'] = $value['jenis_sampah'];
            $result[$no]['harga'] = $value['harga'];
-           //$result[$no]['berat'] = $value['berat'];
-          // $result[$no]['banksampah_id'] = $value['banksampah_id'];
-          // $result[$no]['created_at'] = $value['created_at'];
-            $no++;
+           $no++;
         }
+        return $result;
+    }
+
+    public function getAllPointMemberSelf($email)
+    {
+        $data = $this->database->getReference('users')->getValue();
+        $result = [];
+        $point = 0;
+        $id = 0;
+        $name = '';
+        $phone = '';
+        foreach ($data as $key => $value) {
+            if(isset($value['poin'])){
+                if($value['email'] == $email)
+                {
+                    $phone = $value['phone'];
+                    $name = $value['name'];
+                    $point += $value['poin'];
+                }
+            }
+        }
+        $result['id'] =$id;
+        $result['phone'] =$phone;
+        $result['name'] = $name;
+        $result['point'] = $point;
         return $result;
     }
 

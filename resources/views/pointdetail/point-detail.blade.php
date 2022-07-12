@@ -13,9 +13,11 @@
          <!--  <a href="/addpointMember" class="btn btn-sm btn-success">TAMBAH +</a><br> -->
         <div class="row g-3 align-items-center ">
           <div class="col-auto">
-       <!--      <form action="{{ route('localhero') }}" method="GET">
+            @if($role == 'banksampah')
+            <form action="{{ url('pointMember') }}" method="GET">
               <input type="search" name="search" id="inputPassword5" class="form-control" placeholder="cari berdasarkan nama" aria-describedby="passwordHelpBlock">
-            </form> -->
+            </form>
+            @endif
           </div>
         </div>
           @if($message = Session::get('success'))
@@ -43,13 +45,13 @@
                   @php
                 $no = 1;
                 @endphp
-       
-                <th scope="row">{{ $data['id'] }}</th>
-                <td>{{ $data['name'] }}</td>
-                <td>{{ $data['phone'] }}</td>
-                <td>{{ $data['point'] }}</td>
+                @foreach ($data as $index => $row)
+                <th scope="row">{{ $row['id'] }}</th>
+                <td>{{ $row['name'] }}</td>
+                <td>{{ $row['phone'] }}</td>
+                <td>{{ $row['point'] }}</td>
                <!--  <td> kg</td> -->
-              
+                @endforeach
                 </tr>
             
                   </tbody>

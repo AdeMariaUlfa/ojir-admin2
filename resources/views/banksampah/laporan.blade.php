@@ -12,7 +12,7 @@
           <div class="container">
         <div class="row g-3 align-items-center ">
           <div class="col-auto">
-            <form action="{{ route('localhero') }}" method="GET">
+            <form action="{{ url('laporan') }}" method="GET">
               <input type="search" name="search" id="inputPassword5" class="form-control" placeholder="cari berdasarkan nama" aria-describedby="passwordHelpBlock">
             </form>
           </div>

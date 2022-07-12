@@ -13,8 +13,8 @@
           <a href="/addpoint" class="btn btn-sm btn-success">TAMBAH +</a><br>
         <div class="row g-3 align-items-center ">
           <div class="col-auto">
-            <form action="{{ route('localhero') }}" method="GET">
-              <input type="search" name="search" id="inputPassword5" class="form-control" placeholder="cari berdasarkan gender" aria-describedby="passwordHelpBlock">
+            <form action="{{ url('point') }}" method="GET">
+              <input type="search" name="search" id="inputPassword5" class="form-control" placeholder="cari berdasarkan jenis sampah" aria-describedby="passwordHelpBlock">
             </form>
           </div>
         </div>

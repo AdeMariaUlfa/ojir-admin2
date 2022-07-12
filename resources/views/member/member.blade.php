@@ -14,7 +14,7 @@
         <div class="row g-3 align-items-center ">
           <div class="col-auto">
             <form action="{{ route('member') }}" method="GET">
-              <input type="search" name="search" id="inputPassword5" class="form-control" placeholder="cari berdasarkan gender" aria-describedby="passwordHelpBlock">
+              <input type="search" name="search" id="inputPassword5" class="form-control" placeholder="cari berdasarkan role" aria-describedby="passwordHelpBlock">
             </form>
           </div>
         </div>

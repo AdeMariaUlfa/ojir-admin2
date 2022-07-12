@@ -63,7 +63,7 @@ Route::get('/rejectmember/{id}', [MemberController::class, 'rejectMember'])->nam
 Route::group(['middleware' => ['routefirebase:banksampah,keuangan']], function () {
 
 
-	Route::get('/client/{id?}', [MemberController::class, 'indexClient'])->name('client');
+	Route::get('/client', [MemberController::class, 'indexClient'])->name('client');
 	Route::get('/updateclient/{id}', [MemberController::class, 'updateClient'])->name('updateclient');
 	Route::get('/rejectclient/{id}', [MemberController::class, 'rejectClient'])->name('updateclient');
 
@@ -87,7 +87,7 @@ Route::group(['middleware' => ['routefirebase:banksampah,keuangan']], function (
 // Route::get('/pointMember', [PointController::class, 'indexMember'])->name('pointMember');
 // });
 
-Route::group(['middleware' => ['routefirebase:client,localhero']], function () {
+Route::group(['middleware' => ['routefirebase:client,localhero,banksampah']], function () {
 	Route::get('/pointMember', [PointController::class, 'indexMember'])->name('pointMember');
 });
 
@@ -96,7 +96,6 @@ Route::group(['middleware' => ['routefirebase:localhero']], function () {
 	Route::get('/addpointMember', [PointController::class, 'addpointMember'])->name('addpointMember');
 	Route::post('/postpointMember', [PointController::class, 'postpointMember'])->name('postpoint');
 });
-
 
 //Route::get('/laporan', [PointController::class, 'laporan'])->name('laporan');
 

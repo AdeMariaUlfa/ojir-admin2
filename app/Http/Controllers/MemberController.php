@@ -28,18 +28,15 @@ class MemberController extends Controller
     }
     public function indexMember(Request $request)
     {
+        $search = null;
         if($request->has('search')){
-           // $data = Member::where('gender','LIKE','%' .$request->search.'%')->paginate(5);
-           $data = $this->firebaseMember->search($request->search,5);
+           $search = $request->search;
+        }
+
+        if($this->firebaseData->auth()['role'] == 'admin'){
+            $data = $this->firebaseMember->getAll($search);
         }else{
-          //  return $this->firebaseData->auth()['banksampah_id'];
-            //$data = Member::paginate(10);
-            if( $this->firebaseData->auth()['role'] == 'admin'){
-               $data = $this->firebaseMember->getAll();
-            }else{
-                $data = $this->firebaseMember->getAllByBankSampa($this->firebaseData->auth()['banksampah_id']);
-            }
-            //$data = $this->firebaseMember->getAll();
+            $data = $this->firebaseMember->getAllByBankSampa($this->firebaseData->auth()['banksampah_id'],$search);
         }
         
         return view('member.member', compact('data'));
@@ -57,14 +54,15 @@ class MemberController extends Controller
         return redirect()->back();
     }
 
-    public function indexClient()
+    public function indexClient(Request $request)
     {
+        $search = null;
+        if($request->has('search')){
+           $search = $request->search;
+        }
         $id = $this->firebaseData->auth()['id'];
         $banksampah = $this->firebaseBankSampah->getByUserId($id);
-        // $data = User::join('members','members.user_id','=','users.id')->where(
-        //     'users.role','client')->where('banksampah_id', $banksampah->id)->select(
-        //     'members.*','users.*')->get();
-        $data = $this->firebaseMember->getByBankSampahId($banksampah['id']);
+        $data = $this->firebaseMember->getByBankSampahId($banksampah['id'],$search);
         return view('member.client', compact('data'));
     }
     public function updateClient($id)
@@ -79,11 +77,15 @@ class MemberController extends Controller
         $this->firebaseMember->updateOrReject($id,'no');
         return redirect()->back();
     }
-    public function indexLocalHero()
+    public function indexLocalHero(Request $request)
     {
+        $search = null;
+        if($request->has('search')){
+           $search = $request->search;
+        }
         $id = $this->firebaseData->auth()['id'];
         $banksampah = $this->firebaseBankSampah->getByUserId($id);
-        $data = $this->firebaseMember->getDriver($this->firebaseData->auth()['banksampah_id']);
+        $data = $this->firebaseMember->getDriver($this->firebaseData->auth()['banksampah_id'],$search);
        // return $data;
         return view('member.localhero', compact('data'));
     }

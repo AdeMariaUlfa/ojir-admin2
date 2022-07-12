@@ -42,14 +42,47 @@ class PointFirebase
                 }
             }
         }
-        $result['id'] =$id;
-        $result['phone'] =$phone;
-        $result['name'] = $name;
-        $result['point'] = $point;
+        $result[0]['id'] =$id;
+        $result[0]['phone'] =$phone;
+        $result[0]['name'] = $name;
+        $result[0]['point'] = $point;
         return $result;
     }
 
-    public function getAllPointMemberAll($banksampah_id)
+    public function getAllPointMemberBank($banksampah_id,$search=null)
+    {
+        $data = $this->database->getReference('users')->getValue();
+        $result = [];
+        $no = 0;
+        foreach ($data as $key => $value) {
+            $member = $this->hasOneUserMember($key);
+            if($member != null){
+                if($member['banksampah_id'] == $banksampah_id){
+                     $self = $this->getAllPointMemberSelf($value['email']);
+                     if($search!=null){
+                        $lws = strtolower(str_replace(' ', '', $search));
+                        $lwk = strtolower(str_replace(' ', '', $self[0]['name']));
+                        if($lws == $lwk){
+                             $result[$no]['id'] = $key;
+                             $result[$no]['name'] = $self[0]['name'];
+                             $result[$no]['phone'] = $self[0]['phone'];
+                             $result[$no]['point'] = $self[0]['point'];
+                             $no++;
+                        }
+                    }else{
+                         $result[$no]['id'] = $key;
+                         $result[$no]['name'] = $self[0]['name'];
+                         $result[$no]['phone'] = $self[0]['phone'];
+                         $result[$no]['point'] = $self[0]['point'];
+                         $no++;
+                    }
+                }
+            }
+        }
+        return $result;
+    }
+
+    public function getAllPointMemberAll($banksampah_id,$search=null)
     {
         $data = $this->database->getReference('users')->getValue();
         $result = [];
@@ -59,12 +92,25 @@ class PointFirebase
             if($bank != null){
                 if($bank['banksampah_id'] == $banksampah_id){
                     $self = $this->getAllPointMemberSelf($value['email']);
-                    $result[$no]['id'] = $key;
-                    $result[$no]['role'] = $value['role'];
-                    $result[$no]['name'] = $self['name'];
-                    $result[$no]['phone'] = $self['phone'];
-                    $result[$no]['point'] = $self['point'];
-                    $no++;
+                    if($search!=null){
+                        $lws = strtolower(str_replace(' ', '', $search));
+                        $lwk = strtolower(str_replace(' ', '', $self[0]['name']));
+                        if($lws == $lwk){
+                            $result[$no]['id'] = $key;
+                            $result[$no]['role'] = $value['role'];
+                            $result[$no]['name'] = $self[0]['name'];
+                            $result[$no]['phone'] = $self[0]['phone'];
+                            $result[$no]['point'] = $self[0]['point'];
+                            $no++;
+                        }
+                    }else{
+                        $result[$no]['id'] = $key;
+                        $result[$no]['role'] = $value['role'];
+                        $result[$no]['name'] = $self['name'];
+                        $result[$no]['phone'] = $self['phone'];
+                        $result[$no]['point'] = $self['point'];
+                        $no++;
+                    }
                 }
             }
         }
@@ -83,14 +129,22 @@ class PointFirebase
          return $arr;
     }
 
-    public function getPointByBankSampahIdUser($id)
+    public function getPointByBankSampahIdUser($id,$search)
     {
         $data = $this->database->getReference('points')->getValue();
         $result = [];
         foreach ($data as $key => $value) {
             $user = $this->hasOneUser($value['banksampah_id']);
             if($user != null){
-                array_push($result, $value);
+                if($search != null){
+                    $lws = strtolower(str_replace(' ', '', $search));
+                    $lwk = strtolower(str_replace(' ', '', $value['jenis_sampah']));
+                    if($lws == $lwk){
+                        array_push($result, $value);
+                    }
+                }else{
+                    array_push($result, $value);
+                }
             }
         }
         return $result;

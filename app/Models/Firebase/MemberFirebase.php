@@ -11,47 +11,38 @@ class MemberFirebase
         $this->database = \App\Services\FirebaseService::connect();
     }
 
-    public function getAll()
+    public function getAll($search=null)
     {
         $data = $this->database->getReference('members')->getValue();
         $result = [];
         $no = 0;
         foreach ($data as $key => $value) {
             $user = $this->hasOneUser($value['user_id']);
-            $name = '-';
-            $email = '-';
-            $role = '-';
-            $status = '-';
-            if($user['status'] == true){
-                $name = $user['data']['name'];
-                $email = $user['data']['email'];
-                $status = $user['data']['status'];
-                $role = $user['data']['role'];
-            }
-            $result[$no]['name'] = $name;
-            $result[$no]['email'] = $email;
-            $result[$no]['status'] = $status;
-            $result[$no]['role'] = $role;
-            $result[$no]['user_id'] = $value['user_id'];
-            $result[$no]['gender'] = $value['gender'];
-            $result[$no]['no_ktp'] = $value['no_ktp'];
-            $result[$no]['alamat'] = $value['alamat'];
-            $result[$no]['no_telp'] = $value['no_telp'];
-            $result[$no]['upload_ktp'] = $value['upload_ktp'];
-            $result[$no]['banksampah_id'] = $value['banksampah_id'];
-            $no++;
-        }
-        return $result;
-    }
-
-    public function getAllByBankSampa($id)
-    {
-        $data = $this->database->getReference('members')->getValue();
-        $result = [];
-        $no = 0;
-        foreach ($data as $key => $value) {
-            if($value['banksampah_id'] == $id){
-                $user = $this->hasOneUser($value['user_id']);
+            if($search != null){
+                if($user['data']['role'] == $search){
+                    $name = '-';
+                    $email = '-';
+                    $role = '-';
+                    $status = '-';
+                    if($user['status'] == true){
+                        $name = $user['data']['name'];
+                        $email = $user['data']['email'];
+                        $status = $user['data']['status'];
+                        $role = $user['data']['role'];
+                    }
+                    $result[$no]['name'] = $name;
+                    $result[$no]['email'] = $email;
+                    $result[$no]['status'] = $status;
+                    $result[$no]['role'] = $role;
+                    $result[$no]['user_id'] = $value['user_id'];
+                    $result[$no]['gender'] = $value['gender'];
+                    $result[$no]['no_ktp'] = $value['no_ktp'];
+                    $result[$no]['alamat'] = $value['alamat'];
+                    $result[$no]['no_telp'] = $value['no_telp'];
+                    $result[$no]['upload_ktp'] = $value['upload_ktp'];
+                    $result[$no]['banksampah_id'] = $value['banksampah_id'];
+                }
+            }else{
                 $name = '-';
                 $email = '-';
                 $role = '-';
@@ -73,7 +64,68 @@ class MemberFirebase
                 $result[$no]['no_telp'] = $value['no_telp'];
                 $result[$no]['upload_ktp'] = $value['upload_ktp'];
                 $result[$no]['banksampah_id'] = $value['banksampah_id'];
-                $no++;
+            }
+            $no++;
+        }
+        return $result;
+    }
+
+    public function getAllByBankSampa($id,$search=null)
+    {
+        $data = $this->database->getReference('members')->getValue();
+        $result = [];
+        $no = 0;
+        foreach ($data as $key => $value) {
+            if($value['banksampah_id'] == $id){
+                $user = $this->hasOneUser($value['user_id']);
+                if($search != null && $user['status'] == true){
+                    if($user['data']['role'] == $search){
+                        $name = '-';
+                        $email = '-';
+                        $role = '-';
+                        $status = '-';
+                        if($user['status'] == true){
+                            $name = $user['data']['name'];
+                            $email = $user['data']['email'];
+                            $status = $user['data']['status'];
+                            $role = $user['data']['role'];
+                        }
+                        $result[$no]['name'] = $name;
+                        $result[$no]['email'] = $email;
+                        $result[$no]['status'] = $status;
+                        $result[$no]['role'] = $role;
+                        $result[$no]['user_id'] = $value['user_id'];
+                        $result[$no]['gender'] = $value['gender'];
+                        $result[$no]['no_ktp'] = $value['no_ktp'];
+                        $result[$no]['alamat'] = $value['alamat'];
+                        $result[$no]['no_telp'] = $value['no_telp'];
+                        $result[$no]['upload_ktp'] = $value['upload_ktp'];
+                        $result[$no]['banksampah_id'] = $value['banksampah_id'];
+                    }
+                }else{
+                    $name = '-';
+                    $email = '-';
+                    $role = '-';
+                    $status = '-';
+                    if($user['status'] == true){
+                        $name = $user['data']['name'];
+                        $email = $user['data']['email'];
+                        $status = $user['data']['status'];
+                        $role = $user['data']['role'];
+                    }
+                    $result[$no]['name'] = $name;
+                    $result[$no]['email'] = $email;
+                    $result[$no]['status'] = $status;
+                    $result[$no]['role'] = $role;
+                    $result[$no]['user_id'] = $value['user_id'];
+                    $result[$no]['gender'] = $value['gender'];
+                    $result[$no]['no_ktp'] = $value['no_ktp'];
+                    $result[$no]['alamat'] = $value['alamat'];
+                    $result[$no]['no_telp'] = $value['no_telp'];
+                    $result[$no]['upload_ktp'] = $value['upload_ktp'];
+                    $result[$no]['banksampah_id'] = $value['banksampah_id'];
+                }
+            $no++;
             }
         }
         return $result;
@@ -156,7 +208,7 @@ class MemberFirebase
         ]);
     }
 
-    public function getDriver($id)
+    public function getDriver($id,$search)
     {
         $data = $this->database->getReference('drivers')->getValue();
         $result = [];
@@ -164,19 +216,33 @@ class MemberFirebase
         foreach ($data as $key => $value) {
             if(isset($value['bank_sampah'])){
                 if($value['bank_sampah'] == $id){
-                    $result[$no]['id'] = $key;
-                    $result[$no]['email'] = $value['email'] ?? '-';
-                    $result[$no]['name'] = $value['name'] ?? '-';
-                    $result[$no]['phone'] = $value['phone'] ?? '-';
-                    $result[$no]['photo'] = $value['photo'] ?? '-';
-                    $no++;
+                    if($search != null){
+                    $name = $value['name'] ?? '-';
+                    $lws = strtolower(str_replace(' ', '', $search));
+                    $lwk = strtolower(str_replace(' ', '', $name));
+                    if($lws == $lwk){
+                        $result[$no]['id'] = $key;
+                        $result[$no]['email'] = $value['email'] ?? '-';
+                        $result[$no]['name'] = $value['name'] ?? '-';
+                        $result[$no]['phone'] = $value['phone'] ?? '-';
+                        $result[$no]['photo'] = $value['photo'] ?? '-';
+                        $no++;
+                    }
+                }else{
+                        $result[$no]['id'] = $key;
+                        $result[$no]['email'] = $value['email'] ?? '-';
+                        $result[$no]['name'] = $value['name'] ?? '-';
+                        $result[$no]['phone'] = $value['phone'] ?? '-';
+                        $result[$no]['photo'] = $value['photo'] ?? '-';
+                        $no++;
+                    }
                 }
             }
         }
         return $result;
     }
 
-    public function getByBankSampahId($banksampah_id)
+    public function getByBankSampahId($banksampah_id,$search=null)
     {
         $data = $this->database->getReference('members')->getValue();
         $result = [];
@@ -184,29 +250,59 @@ class MemberFirebase
         foreach ($data as $key => $value) {
             $user = $this->hasOneUser($value['user_id']);
             if($value['banksampah_id'] == $banksampah_id && $user['data']['role'] == 'client'){
-                $name = '-';
-                $email = '-';
-                $role = '-';
-                $status = '-';
-                if($user['status'] == true){
-                    $name = $user['data']['name'];
-                    $email = $user['data']['email'];
-                    $status = $user['data']['status'];
-                    $role = $user['data']['role'];
+                if($search != null && $user['status'] == true){
+                    $lws = strtolower(str_replace(' ', '', $search));
+                    $lwk = strtolower(str_replace(' ', '', $user['data']['name']));
+                    if($lws == $lwk){
+                        $name = '-';
+                        $email = '-';
+                        $role = '-';
+                        $status = '-';
+                        if($user['status'] == true){
+                            $name = $user['data']['name'];
+                            $email = $user['data']['email'];
+                            $status = $user['data']['status'];
+                            $role = $user['data']['role'];
+                        }
+                        $result[$no]['id'] = $key;
+                        $result[$no]['name'] = $name;
+                        $result[$no]['email'] = $email;
+                        $result[$no]['status'] = $status;
+                        $result[$no]['role'] = $role;
+                        $result[$no]['user_id'] = $value['user_id'];
+                        $result[$no]['gender'] = $value['gender'];
+                        $result[$no]['no_ktp'] = $value['no_ktp'];
+                        $result[$no]['alamat'] = $value['alamat'];
+                        $result[$no]['no_telp'] = $value['no_telp'];
+                        $result[$no]['upload_ktp'] = $value['upload_ktp'];
+                        $result[$no]['banksampah_id'] = $value['banksampah_id'];
+                        $no++;
+                    }
+                }else{
+                    $name = '-';
+                    $email = '-';
+                    $role = '-';
+                    $status = '-';
+                    if($user['status'] == true){
+                        $name = $user['data']['name'];
+                        $email = $user['data']['email'];
+                        $status = $user['data']['status'];
+                        $role = $user['data']['role'];
+                    }
+                    $result[$no]['id'] = $key;
+                    $result[$no]['name'] = $name;
+                    $result[$no]['email'] = $email;
+                    $result[$no]['status'] = $status;
+                    $result[$no]['role'] = $role;
+                    $result[$no]['user_id'] = $value['user_id'];
+                    $result[$no]['gender'] = $value['gender'];
+                    $result[$no]['no_ktp'] = $value['no_ktp'];
+                    $result[$no]['alamat'] = $value['alamat'];
+                    $result[$no]['no_telp'] = $value['no_telp'];
+                    $result[$no]['upload_ktp'] = $value['upload_ktp'];
+                    $result[$no]['banksampah_id'] = $value['banksampah_id'];
+                    $no++;
                 }
-                $result[$no]['id'] = $key;
-                $result[$no]['name'] = $name;
-                $result[$no]['email'] = $email;
-                $result[$no]['status'] = $status;
-                $result[$no]['role'] = $role;
-                $result[$no]['user_id'] = $value['user_id'];
-                $result[$no]['gender'] = $value['gender'];
-                $result[$no]['no_ktp'] = $value['no_ktp'];
-                $result[$no]['alamat'] = $value['alamat'];
-                $result[$no]['no_telp'] = $value['no_telp'];
-                $result[$no]['upload_ktp'] = $value['upload_ktp'];
-                $result[$no]['banksampah_id'] = $value['banksampah_id'];
-                $no++;
             }
         }
         return $result;

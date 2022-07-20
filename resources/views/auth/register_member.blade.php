@@ -149,7 +149,7 @@ button:hover {
                         <option selected>Pilih jenis member</option>
                           <option value="keuangan">Admin Keuangan</option>
                           <option value="localhero">Local Hero</option>
-                          <option value="client">Client</option>
+                          <!-- <option value="client">Client</option> -->
                     </select>
                     </div>
                   <label>{{ __('Nama Lengkap') }}</label>

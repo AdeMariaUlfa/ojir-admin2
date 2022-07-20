@@ -33,6 +33,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/register/member', [RegisterController::class, 'showRegistrationFormMember'])->name('register.member');
 Route::post('/register/member', [RegisterController::class, 'createMember'])->name('registerMember');
+Route::post('/register/bank_sampah', [RegisterController::class, 'create']);
 Route::get('/register/memberGetBankSampah', [RegisterController::class, 'showBankSampah'])->name('showBankSampah');
 
 

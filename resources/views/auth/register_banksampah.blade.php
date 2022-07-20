@@ -36,7 +36,7 @@
                   <p class="mb-0">{{ __('Register') }}</p>
                 </div>
                 <div class="card-body bg-light">
-                  <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
+                  <form action="{{ url('register/bank_sampah') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <label>{{ __('Nama Bank Sampah') }}</label>
                     <div class="mb-3">

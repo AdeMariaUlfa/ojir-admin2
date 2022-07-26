@@ -49,7 +49,7 @@ Route::get('/rejectmember/{id}', [MemberController::class, 'rejectMember'])->nam
 
 });
 
-Route::group(['middleware' => ['routefirebase:admin,banksampah']], function () {
+Route::group(['middleware' => ['routefirebase:admin,banksampah,keuangan']], function () {
 Route::get('/member', [MemberController::class, 'indexMember'])->name('member');
 Route::get('/updatemember/{id}', [MemberController::class, 'updateMember'])->name('updatemember');
 Route::get('/rejectmember/{id}', [MemberController::class, 'rejectMember'])->name('updatemember');
@@ -88,7 +88,7 @@ Route::group(['middleware' => ['routefirebase:banksampah,keuangan']], function (
 // Route::get('/pointMember', [PointController::class, 'indexMember'])->name('pointMember');
 // });
 
-Route::group(['middleware' => ['routefirebase:client,localhero,banksampah']], function () {
+Route::group(['middleware' => ['routefirebase:client,localhero,banksampah,keuangan']], function () {
 	Route::get('/pointMember', [PointController::class, 'indexMember'])->name('pointMember');
 });
 

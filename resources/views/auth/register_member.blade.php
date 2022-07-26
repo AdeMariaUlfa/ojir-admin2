@@ -173,7 +173,7 @@ button:hover {
                   <label>{{ __('Upload KTP') }}</label>
                   <div class="mb-1">
                     <div class="custom-file">
-                      <input id="upload_ktp" type="file" class="custom-file-input" name="upload_ktp">
+                      <input id="upload_ktp" type="file" onchange="fileValidation()" accept="image/*" class="custom-file-input" id="upload_ktp" name="upload_ktp">
                       <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     </div>
@@ -271,6 +271,25 @@ button:hover {
       }
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
+    function fileValidation() {
+            var fileInput = 
+            document.getElementById('upload_ktp');
+              
+            var filePath = fileInput.value;
+          
+            // Allowing file type
+            var allowedExtensions = 
+                    /(\.jpg|\.jpeg|\.png|\.pdf|\.doc|\.docx)$/i;
+              
+            if (!allowedExtensions.exec(filePath)) {
+               alert('format bukan gambar!');
+                return false;
+            } 
+            else 
+            {
+              //
+            }
+        }
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

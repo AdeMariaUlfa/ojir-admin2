@@ -44,6 +44,7 @@
                 $total = 0;
                 @endphp
                 @foreach ($data as $index => $row)
+                @if($row != 'none')
                 <th scope="row">{{ $row['id'] }}</th>
                 <td>{{ $row['name'] }}</td>
                 <td>{{ $row['phone'] }}</td>
@@ -52,6 +53,7 @@
                 @php
                   $total += $row['point'];
                 @endphp
+                @endif
                 @endforeach
                 <tr>
                         <th colspan="4">TOTAL</th>

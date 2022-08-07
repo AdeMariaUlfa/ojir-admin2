@@ -98,16 +98,16 @@ class PointFirebase
                         if($lws == $lwk){
                             $result[$no]['id'] = $key;
                             $result[$no]['role'] = $value['role'];
-                            $result[$no]['name'] = $self[0]['name'] ?? '';
-                            $result[$no]['phone'] = $self[0]['phone'] ?? '';
+                            $result[$no]['name'] = $self[0]['name'] ?? 'none';
+                            $result[$no]['phone'] = $self[0]['phone'] ?? 'none';
                             $result[$no]['point'] = $self[0]['point'] ?? 0;
                             $no++;
                         }
                     }else{
                         $result[$no]['id'] = $key;
                         $result[$no]['role'] = $value['role'];
-                        $result[$no]['name'] = $self['name'] ?? '';
-                        $result[$no]['phone'] = $self['phone'] ?? '';
+                        $result[$no]['name'] = $self['name'] ?? 'none';
+                        $result[$no]['phone'] = $self['phone'] ?? 'none';
                         $result[$no]['point'] = $self['point'] ?? 0;
                         $no++;
                     }

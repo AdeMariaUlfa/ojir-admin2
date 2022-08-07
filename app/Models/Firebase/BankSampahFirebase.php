@@ -5,10 +5,11 @@ use Carbon\Carbon;
 class BankSampahFirebase
 {
 	private $database;
-
+    private $firebaseData;
     public function __construct()
     {
         $this->database = \App\Services\FirebaseService::connect();
+        $this->firebaseData = new \App\Models\Firebase\FirebaseData();
     }
 
     public function getAll()
@@ -43,18 +44,42 @@ class BankSampahFirebase
 
     public function getByUserId($id)
     {
-        $data = $this->database->getReference('bank_sampahs')->getValue();
-       // return $data;
+        $role = $this->firebaseData->auth()['role'];
         $result = [];
-        foreach ($data as $key => $value) {
-            if($value['user_id'] == $id){
-                $result['id'] = $key;
-                $result['pemilik'] = $value['pemilik'];
-                $result['tanggal_berdiri'] = $value['tanggal_berdiri'];
-                $result['alamat_banksampah'] = $value['alamat_banksampah'];
-                $result['kota_kab'] = $value['kota_kab'];
-                $result['phone'] = $value['phone'];
-                break;
+        if($role == 'keuangan'){
+            $member = $this->database->getReference('members')->getValue();
+            $banksampah_id = null;
+            foreach ($member as $key => $value) {
+                if($value['user_id'] == $id){
+                    $banksampah_id = $value['banksampah_id'];
+                }
+            }
+            if($banksampah_id != null){
+                $data = $this->database->getReference('bank_sampahs')->getValue();
+                foreach ($data as $key => $value) {
+                    if($key == $banksampah_id){
+                        $result['id'] = $key;
+                        $result['pemilik'] = $value['pemilik'];
+                        $result['tanggal_berdiri'] = $value['tanggal_berdiri'];
+                        $result['alamat_banksampah'] = $value['alamat_banksampah'];
+                        $result['kota_kab'] = $value['kota_kab'];
+                        $result['phone'] = $value['phone'];
+                        break;
+                    }
+                }
+            }
+        }else{
+            $data = $this->database->getReference('bank_sampahs')->getValue();
+            foreach ($data as $key => $value) {
+                if($value['user_id'] == $id){
+                    $result['id'] = $key;
+                    $result['pemilik'] = $value['pemilik'];
+                    $result['tanggal_berdiri'] = $value['tanggal_berdiri'];
+                    $result['alamat_banksampah'] = $value['alamat_banksampah'];
+                    $result['kota_kab'] = $value['kota_kab'];
+                    $result['phone'] = $value['phone'];
+                    break;
+                }
             }
         }
         return $result;   

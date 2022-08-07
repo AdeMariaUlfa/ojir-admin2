@@ -13,12 +13,14 @@ class PointController extends Controller
      private $firebaseData;
      private $firebaseBankSampah;
      private $firebasePoint;
+     private $database;
      public function __construct()
      {
         //$this->middleware('authfirebase');
         $this->firebasePoint = new \App\Models\Firebase\PointFirebase();
         $this->firebaseBankSampah = new \App\Models\Firebase\BankSampahFirebase();
         $this->firebaseData = new \App\Models\Firebase\FirebaseData();
+        $this->database = \App\Services\FirebaseService::connect();
      }
     public function index(Request $request)
     {

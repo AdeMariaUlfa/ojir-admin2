@@ -85,9 +85,25 @@ class PointController extends Controller
         if($request->has('search')){
            $search = $request->search;
         }
-        $id = $this->firebaseData->auth()['banksampah_id'];
-        $data = $this->firebasePoint->getAllPointMemberAll($id,$search);
-        return view('banksampah.laporan', compact('data'));
+        $role = $this->firebaseData->auth()['role'];
+        f($role == 'keuangan'){
+            $member = $this->database->getReference('members')->getValue();
+            $banksampah_id = null;
+            $id_login = $this->firebaseData->auth()['id'];
+            foreach ($member as $key => $value) {
+                if($value['user_id'] == $id_login){
+                    $banksampah_id = $value['banksampah_id'];
+                }
+            }
+            $id = $banksampah_id;
+            $data = $this->firebasePoint->getAllPointMemberAll($id,$search);
+            return view('banksampah.laporan', compact('data'));
+        }else{
+            $id = $this->firebaseData->auth()['banksampah_id'];
+            $data = $this->firebasePoint->getAllPointMemberAll($id,$search);
+            return view('banksampah.laporan', compact('data'));
+        }
+        
     }
 
     public function getGurrentPointBankSampa(Request $request)

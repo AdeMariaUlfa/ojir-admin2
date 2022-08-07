@@ -106,9 +106,9 @@ class PointFirebase
                     }else{
                         $result[$no]['id'] = $key;
                         $result[$no]['role'] = $value['role'];
-                        $result[$no]['name'] = $self['name'];
-                        $result[$no]['phone'] = $self['phone'];
-                        $result[$no]['point'] = $self['point'];
+                        $result[$no]['name'] = $self['name'] ?? '';
+                        $result[$no]['phone'] = $self['phone'] ?? '';
+                        $result[$no]['point'] = $self['point'] ?? '';
                         $no++;
                     }
                 }

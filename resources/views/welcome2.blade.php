@@ -50,6 +50,9 @@
           <li class="nav-item my-auto ms-3 ms-lg-4">
             <a href="{{ route('login') }}" class="btn btn-sm  bg-white  btn-round mb-0 me-1 mt-2 mt-md-0">Login or Register</a>
           </li>
+          <li class="nav-item my-auto ms-3 ms-lg-4">
+            <a href="https://maggot-app.site/" target="_blank" class="btn btn-sm  bg-white  btn-round mb-0 me-1 mt-2 mt-md-0">Management Maggot</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -63,7 +66,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center mx-auto my-auto">
             <h1 class="text-white">Send your organic waste</h1>
-            <p class="lead mb-4 text-white opacity-8">With Us. Ojir Website 2022.</p>
+            <p class="lead mb-4 text-white opacity-8">With Us. Ojir Website {{date('Y')}}.</p>
             <h6 class="text-white mb-2 mt-5">Find us on</h6>
             <div class="d-flex justify-content-center">
               <a href="https://www.instagram.com/ojirofficial/"><i class="fab fa-instagram text-lg text-white me-4"></i></a>

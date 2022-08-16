@@ -38,13 +38,15 @@
       <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0 ms-lg-12 ps-lg-5" id="navigation" >
         <ul class="navbar-nav navbar-nav-hover w-110" >
           <li class="nav-item dropdown dropdown-hover mx-2 ms-lg-6">
-            <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages8" data-bs-toggle="dropdown" aria-expanded="false">
-              Manual Book
+            <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" 
+            href="{{url('book/Manual_Book_Ojir.pdf')}}" download>
+              Manual Book Ojir
             </a>
           </li>
           <li class="nav-item dropdown dropdown-hover mx-2 ms-lg-4">
-            <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages8" data-bs-toggle="dropdown" aria-expanded="false">
-              About Us
+            <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" 
+            href="{{url('book/Manual_Book_APLIKASI_MAGGOT.pdf')}}" download>
+              Manual Book Maggot
             </a>
           </li>
           <li class="nav-item my-auto ms-3 ms-lg-4">
